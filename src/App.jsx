@@ -6,6 +6,7 @@ import Home from "./routes/Home"; // Correct path for Home
 import About from "./routes/About"; // Correct path for About
 import Service from "./routes/Service"; // Correct path for Service
 import Contact from "./routes/Contact"; // Correct path for Contact
+import Membership from "./routes/Membership";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
          
            <Route path="/login" element={<Login />}  />
            <Route path="/signup" element={<Signup />} /> 
+           <Route path="/membership" element={<Membership />} /> 
         </Routes>
       </div>
     </Router>

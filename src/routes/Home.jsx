@@ -16,7 +16,7 @@ function Home() {
         title="Outdoor Activities & Recreational Society"
         text="MMU Cyberjaya"
         buttonText="Become a Member"
-        url="/"
+        url="/membership"
         btnClass="show"
       />
       <Destination />
