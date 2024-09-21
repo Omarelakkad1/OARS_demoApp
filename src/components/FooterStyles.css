@@ -1,0 +1,89 @@
+.footer {
+    padding: 4rem 6rem;
+    background: #000;
+    color: #fff;
+  }
+  
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    text-align: start;
+  }
+  
+  .logo-section {
+    text-align: left;
+  }
+  
+  .logo-section h1 {
+    font-size: 2.5rem;
+  }
+  
+  .logo-section p {
+    font-size: 1.1rem;
+    color: #f0f0f0;
+    margin-top: 0.5rem;
+  }
+  
+  .social-icons {
+    display: flex;
+  }
+  
+  .social-icons a {
+    color: #fff;
+    font-size: 2rem;
+    margin-left: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .social-icons a:hover {
+    color: #617c49;
+  }
+  
+  .bottom {
+    padding-top: 2rem;
+    text-align: start;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .bottom div {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .bottom h4 {
+    font-size: 1.3rem;
+    padding: 1rem 0 0.8rem 0;
+  }
+  
+  .bottom a {
+    text-decoration: none;
+    color: #fafafa;
+    padding-bottom: 0.4rem;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .bottom a:hover {
+    color: #617c49;
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 850px) {
+    .footer {
+      padding: 4rem 2rem;
+    }
+  
+    .social-icons {
+      margin-top: 1rem;
+    }
+  
+    .bottom div {
+      width: 50%;
+      margin-bottom: 1rem;
+    }
+  }
+  

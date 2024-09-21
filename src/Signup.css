@@ -1,0 +1,32 @@
+Background and Layout for Signup
+.signup {
+    background-image: url('/images/signupBackground.jpg'); /* Path to your background image */
+    background-size: cover;  /* Ensure the background covers the entire container */
+    background-position: center;  /* Center the background image */
+    background-repeat: no-repeat;  /* Prevent repeating the image */
+    height: 100vh;  /* Full viewport height */
+    width: 100%;  /* Full width */
+    display: flex;  /* Flexbox for centering */
+    justify-content: center;  /* Center horizontally */
+    align-items: center;  /* Center vertically */
+  }
+  
+  /* Form Container Styles */
+  .form_container {
+    width: 40%; /* Adjust width as needed */
+    max-width: 500px; /* Maximum width to prevent it from getting too wide */
+    min-width: 300px; /* Minimum width to prevent it from getting too narrow */
+    padding: 20px; /* Space inside the container */
+    background-color: white; /* Background color of the container */
+    border-radius: 30px; /* Same roundness as Login */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Same shadow as Login */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  }
+  
+  /* Responsive adjustments */
+  @media screen and (max-width: 700px) {
+    .form_container {
+      width: 65%; /* Adjust width for smaller screens */
+    }
+  }
+  

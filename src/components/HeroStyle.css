@@ -1,0 +1,88 @@
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Container height */
+  }
+  
+  .hero-mid {
+    width: 100%;
+    height: 80vh;
+    position: relative;
+  }
+
+    
+   .hero-mid h1 {
+     padding-top: 4rem !important;
+
+  } 
+  
+  img {
+    width: 100%;
+    height: 100%; /* Use 100% height to fill the container */
+    object-fit: cover; /* Ensure the image covers the container */
+  }
+  
+  .hero-text {
+    position: absolute;
+    top: 78%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Centering trick */
+    width: 90%; /* Adjust width to fit container */
+    text-align: center; /* Center text alignment */
+    color: #fff; /* Default text color */
+  }
+  
+  .hero-text h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #fff; /* Ensure text color is white */
+    /* -webkit-background-clip: text; */
+    /* -webkit-text-fill-color: transparent; */
+    margin-bottom: 0.5rem; /* Space below heading */
+  }
+  
+  .hero-text p {
+    font-size: 1.3rem;
+    color: #fff; /* Ensure paragraph text color is white */
+    margin-bottom: 1.5rem; /* Space below paragraph */
+  }
+  
+  .hero-text a {
+    display: inline-block; /* Button-like styling */
+    background: #617C49; /* Button background */
+    color: #222; /* Button text color */
+    text-decoration: none; /* Remove underline */
+    padding: 1rem 2rem; /* Button padding */
+    border-radius: 6px; /* Rounded corners */
+    font-size: 1.1rem; /* Font size for button text */
+    font-weight: bold; /* Font weight for button text */
+    letter-spacing: 2px; /* Letter spacing for button text */
+  }
+  
+  .hero-text a:hover {
+    background-color: #f0f0f0; /* Change background on hover */
+    color: #333; /* Change text color on hover */
+  }
+  
+  /* Specific styles for the "show" class */
+  .show {
+    padding: 0.6rem 1.1rem;
+    border-radius: 6px;
+    font-size: 1rem;
+  }
+  
+  /* Specific styles for the "hide" class */
+  .hide {
+    display: none;
+  }
+  
+  @media screen and (max-width: 555px) {
+    .hero-text h1 {
+      padding: 10px 20px;
+    }
+    .hero-text p {
+      font-size: 1.1rem;
+      padding: 0 0 2rem 0;
+    }
+  }
+  
