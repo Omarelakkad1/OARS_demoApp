@@ -1,32 +1,92 @@
-Background and Layout for Signup
+/* Signup Page Background and Layout */
 .signup {
-    background-image: url('/images/signupBackground.jpg'); /* Path to your background image */
-    background-size: cover;  /* Ensure the background covers the entire container */
-    background-position: center;  /* Center the background image */
-    background-repeat: no-repeat;  /* Prevent repeating the image */
-    height: 100vh;  /* Full viewport height */
-    width: 100%;  /* Full width */
-    display: flex;  /* Flexbox for centering */
-    justify-content: center;  /* Center horizontally */
-    align-items: center;  /* Center vertically */
-  }
-  
-  /* Form Container Styles */
+  background-image: url('/images/signupBackground.jpg'); 
+  background-size: cover; 
+  background-position: center;
+  background-repeat: no-repeat; 
+  height: 100vh; 
+  width: 100%;
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  padding: 20px; 
+  box-sizing: border-box; 
+}
+
+/* Form Container Styles */
+.form_container {
+  width: 40%; 
+  max-width: 500px; 
+  min-width: 300px; 
+  padding: 40px 30px; 
+  background-color: white; 
+  border-radius: 15px; 
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); 
+  box-sizing: border-box; 
+  text-align: center; 
+}
+
+/* Align Labels to the Left */
+.form_container label {
+  display: block;
+  font-size: 1rem;
+  color: #333;
+  text-align: left; /* Align the label text to the left */
+  margin-bottom: 5px; /* Add some space between label and input */
+}
+
+/* Form Field Styles */
+.form-control {
+  width: 100%;
+  padding: 10px 15px; /* More spacious padding for input fields */
+  margin-bottom: 20px; /* More space between input fields */
+  border: 1px solid #ccc; /* Soft border for inputs */
+  border-radius: 8px; /* Rounded corners for inputs */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Slight inner shadow for depth */
+  font-size: 1rem; /* Consistent font size */
+  color: #333; /* Darker input text for readability */
+}
+
+/* Form Button Styles */
+.btn-success {
+  width: 100%;
+  padding: 10px 15px; /* Padding for the button */
+  background-color: #617c49; /* Same green as navbar hover */
+  color: #fff; /* White text for contrast */
+  font-size: 1.1rem; /* Slightly larger font */
+  font-weight: 600; /* Make the text bold */
+  border: none; /* No border */
+  border-radius: 8px; /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Smooth hover transition */
+}
+
+.btn-success:hover {
+  background-color: #4e6338; /* Darker green on hover */
+}
+
+/* Links Styling */
+p.text-end {
+  margin-top: 15px; /* Add space above the text */
+}
+
+p.text-end a {
+  color: #617c49; /* Match the signup button color */
+  font-weight: 600; /* Bold for emphasis */
+}
+
+p.text-end a:hover {
+  text-decoration: underline; /* Underline on hover for interactivity */
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 700px) {
   .form_container {
-    width: 40%; /* Adjust width as needed */
-    max-width: 500px; /* Maximum width to prevent it from getting too wide */
-    min-width: 300px; /* Minimum width to prevent it from getting too narrow */
-    padding: 20px; /* Space inside the container */
-    background-color: white; /* Background color of the container */
-    border-radius: 30px; /* Same roundness as Login */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Same shadow as Login */
-    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    width: 80%; /* Adjust width for smaller screens */
+    padding: 30px 20px; /* Less padding for small screens */
   }
-  
-  /* Responsive adjustments */
-  @media screen and (max-width: 700px) {
-    .form_container {
-      width: 65%; /* Adjust width for smaller screens */
-    }
+
+  .btn-success {
+    font-size: 1rem; /* Adjust button font size */
   }
-  
+}

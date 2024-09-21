@@ -4,35 +4,37 @@ import "../Navbar.css";
 import { Navmenuitems } from "./Navmenuitems"; 
 
 class Navbar extends Component {
-    state= {clicked: false};
-    handleClick = () =>{
-        this.setState({clicked: !this.state.clicked})
+    state = { clicked: false };
+    handleClick = () => {
+        this.setState({ clicked: !this.state.clicked });
     }
-  // Fixed class name
-  render() {
-    return (
-      <nav className="NavbarItems">
-        <h1 className="navbar-logo">OARS</h1>
-        <div className="menu-icons" onClick={this.handleClick}>
-          <i className={this.state.clicked ? "fas fa-times": "fas fa-bars"}></i> 
-        </div>
 
-        <ul className={this.state.clicked ? "nav-menu active": "nav-menu" }>
-          {Navmenuitems.map((item, index) => (
-            <li key={index}>
-              {" "}
-              {/* Added key for list items */}
-              <Link to={item.url} className={item.cName}>
-                <i className={item.icon}></i>
-                {item.title}
-              </Link>
-            </li>
-          ))}
-          <button>Sign up</button>
-        </ul>
-      </nav>
-    );
-  }
+    render() {
+        return (
+            <nav className="NavbarItems">
+                <h1 className="navbar-logo">OARS</h1>
+                <div className="menu-icons" onClick={this.handleClick}>
+                    <i className={this.state.clicked ? "fas fa-times" : "fas fa-bars"}></i>
+                </div>
+
+                <ul className={this.state.clicked ? "nav-menu active" : "nav-menu"}>
+                    {Navmenuitems.map((item, index) => (
+                        <li key={index}>
+                            <Link to={item.url} className={item.cName}>
+                                <i className={item.icon}></i>
+                                {item.title}
+                            </Link>
+                        </li>
+                    ))}
+                    <li>
+                        <Link to="/signup" className="nav-links"> {/* Apply nav-links class */}
+                            Sign Up
+                        </Link>
+                    </li>
+                </ul>
+            </nav>
+        );
+    }
 }
 
 export default Navbar;
