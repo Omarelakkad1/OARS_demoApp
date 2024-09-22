@@ -11,7 +11,7 @@ function Events () {
       <Hero
         cName="hero-mid"
         heroImg={AboutImg}
-        title="events "
+        title="Events "
 
         btnClass="hide"
       />
