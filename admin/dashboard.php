@@ -144,7 +144,7 @@ if(!isset($_SESSION['auser']))
 									</div>
 									<div class="dash-widget-info">
 										
-									<h3><?php $sql = "SELECT * FROM events";
+									<h3><?php $sql = "SELECT * FROM events WHERE `date` BETWEEN CURDATE() - INTERVAL 10 DAY AND CURDATE();";
 										$query = $con->query($sql);
                 						echo "$query->num_rows";?></h3>
 										
@@ -171,7 +171,7 @@ if(!isset($_SESSION['auser']))
 									</div>
 									<div class="dash-widget-info">
 										
-									<h3><?php $sql = "SELECT * FROM competition";
+									<h3><?php $sql = "SELECT * FROM competition WHERE `date` BETWEEN CURDATE() - INTERVAL 10 DAY AND CURDATE();";
 										$query = $con->query($sql);
                 						echo "$query->num_rows";?></h3>
 										
