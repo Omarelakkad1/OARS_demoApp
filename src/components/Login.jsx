@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
-import "../Login.css"; // Import specific CSS for this component
+import "../Login.css"; 
 
 function Login() {
   const images = [
@@ -18,16 +18,6 @@ function Login() {
 
     return () => clearInterval(intervalId);
   }, [images.length]);
-
-  const nextImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-  };
-
-  const prevImage = () => {
-    setCurrentImageIndex(
-      (prevIndex) => (prevIndex - 1 + images.length) % images.length
-    );
-  };
 
   const goToImage = (index) => {
     setCurrentImageIndex(index);
@@ -49,8 +39,6 @@ function Login() {
               ))}
             </div>
           </div>
-          <p className="text-white fs-2" style={{ fontFamily: "'Courier New', Courier, monospace", fontWeight: 600 }}></p>
-          <small className="text-white text-wrap text-center" style={{ width: "40rem", fontFamily: "'Courier New', Courier, monospace" }}></small>
         </div>
         <div className="col-md-6 right-box">
           <div className="row align-items-center">
@@ -77,12 +65,6 @@ function Login() {
             </div>
             <div className="input-group mb-3">
               <button className="btn btn-lg btn-success w-100 fs-6">Login</button>
-            </div>
-            <div className="input-group mb-3">
-              <button className="btn btn-lg btn-light w-100 fs-6">
-                <img src="/images/google.png" style={{ width: "20px" }} className="me-2" alt="Google" />
-                <small>Sign In with Google</small>
-              </button>
             </div>
             <div className="row">
               <small>Don't have an account? <Link to="/signup">Sign Up</Link></small>
