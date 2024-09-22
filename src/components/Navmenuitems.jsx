@@ -19,6 +19,12 @@ export const Navmenuitems = [
       icon: "fa-solid fa-briefcase",
     },
     {
+      title: "FAQ",
+      url: "/faq",
+      cName: "nav-links",
+      icon: "fa-solid fa-question-circle",
+    },
+    {
       title: "Service",
       url: "/service",
       cName: "nav-links",
@@ -62,4 +68,3 @@ export const Navmenuitems = [
       icon: "fa-solid fa-right-to-bracket",
     },
   ];
-  

@@ -24,6 +24,9 @@
   z-index: 9999;
 
 }
+.NavbarItems :last-child {
+  margin-left: auto
+}
 
 .navbar-logo {
   color: #222;
