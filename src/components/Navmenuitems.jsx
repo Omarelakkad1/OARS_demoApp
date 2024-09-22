@@ -35,36 +35,5 @@ export const Navmenuitems = [
       url: "/contact",
       cName: "nav-links",
       icon: "fa-solid fa-address-book",
-    },
-    {
-      title: "",
-      url: "/",
-      cName: "",
-    },
-    {
-      title: "",
-      url: "/",
-      cName: "",
-    },
-    {
-      title: "",
-      url: "/",
-      cName: "",
-    },
-    {
-      title: "",
-      url: "/",
-      cName: "",
-    },
-    {
-      title: "",
-      url: "/",
-      cName: "",
-    },
-    {
-      title: "Sign up",
-      url: "/signup",
-      cName: "nav-links",
-      icon: "fa-solid fa-right-to-bracket",
-    },
+    }
   ];

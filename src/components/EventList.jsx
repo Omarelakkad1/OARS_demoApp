@@ -1,50 +1,177 @@
-// EventList.jsx
-const EventList = [
-  {
-    id: 1,
-    title: "Annual River Cleanup",
-    description: "Join us for our annual river cleanup event. Help preserve our local waterways and wildlife.",
-    date: "2025-07-15",
-    location: "Green River Park",
-    fee: "RM5 (to cover supplies)",
-    fullDescription: "Our annual river cleanup is a great opportunity to give back to nature and meet fellow outdoor enthusiasts. We'll provide gloves, bags, and other cleaning supplies. Please wear sturdy shoes and clothes you don't mind getting dirty. After the cleanup, we'll have a small picnic to celebrate our efforts!",
-  },
-  {
-    id: 2,
-    title: "Mountain Hiking Adventure",
-    description: "Explore the beautiful mountain trails with experienced guides. Suitable for all skill levels.",
-    date: "2025-08-05",
-    location: "Blue Mountain Trail",
-    fee: "RM20",
-    fullDescription: "Join us for a day of hiking in the beautiful Blue Mountains. Our experienced guides will lead groups for beginners, intermediate, and advanced hikers. Learn about local flora and fauna, practice proper hiking techniques, and enjoy breathtaking views. Don't forget to bring water, snacks, and appropriate footwear!",
-  },
-  {
-    id: 3,
-    title: "Kayaking Workshop",
-    description: "Learn the basics of kayaking in this hands-on workshop. Equipment provided.",
-    date: "2025-08-20",
-    location: "Calm Waters Lake",
-    fee: "RM30 (includes equipment rental)",
-    fullDescription: "This beginner-friendly kayaking workshop will teach you everything you need to know to get started with this exciting water sport. Our instructors will cover safety, paddling techniques, and basic maneuvers. All equipment, including kayaks, paddles, and life jackets, will be provided. Come ready to get wet and have fun!",
-  },
-  {
-    id: 4,
-    title: "Nature Photography Contest",
-    description: "Showcase your best nature photos and win prizes. Open to amateur and professional photographers.",
-    date: "2025-09-10",
-    location: "Online Submission",
-    fee: "RM10 entry fee",
-    fullDescription: "Calling all nature photographers! Submit your best shots in categories including wildlife, landscapes, and macro nature photography. Winners will be featured in our annual calendar and receive outdoor gear prizes. Submissions open August 1st and close September 5th. Winners announced at our gallery event on September 10th.",
-  },
-  {
-    id: 5,
-    title: "Rock Climbing Clinic",
-    description: "Improve your rock climbing skills with our experienced instructors. All safety gear provided.",
-    date: "2025-09-25",
-    location: "Granite Cliffs",
-    fee: "RM40",
-    fullDescription: "Whether you're a beginner or looking to refine your technique, our rock climbing clinic has something for everyone. Learn about proper safety procedures, belaying techniques, and challenging climbing moves. We'll provide all necessary gear, including harnesses, helmets, and shoes. Come ready for a fun and challenging day on the rocks!",
-  },
-];
+import React, { useState, useEffect } from 'react';
+import { fetchEvents, createEvent, updateEvent, deleteEvent } from '../api';
+import './EventsStyle.css';
+
+const EventList = () => {
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
+  const [formData, setFormData] = useState({
+    title: '',
+    location: '',
+    date: '',
+    fee: ''
+  });
+  const [successMessage, setSuccessMessage] = useState('');
+
+  useEffect(() => {
+    fetchEventData();
+  }, []);
+
+  const fetchEventData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await fetchEvents();
+      setEvents(data);
+    } catch (err) {
+      console.error('Error fetching events:', err);
+      setError(`Failed to fetch events. Error: ${err.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCreate = () => {
+    setIsEditing(true);
+    setSelectedEvent(null);
+    setFormData({
+      title: '',
+      location: '',
+      date: '',
+      fee: ''
+    });
+    setError(null);
+    setSuccessMessage('');
+  };
+
+  const handleEdit = (event) => {
+    setSelectedEvent(event);
+    setIsEditing(true);
+    setFormData({
+      title: event.title,
+      location: event.location,
+      date: event.date,
+      fee: event.fee
+    });
+    setError(null);
+    setSuccessMessage('');
+  };
+
+  const handleDelete = async (eventId) => {
+    if (window.confirm('Are you sure you want to delete this event?')) {
+      try {
+        setError(null);
+        await deleteEvent(eventId);
+        setSuccessMessage('Event deleted successfully');
+        setSelectedEvent(null);
+        await fetchEventData();
+      } catch (err) {
+        setError(`Failed to delete event. Error: ${err.message}`);
+      }
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setError(null);
+      if (selectedEvent) {
+        await updateEvent(selectedEvent.id, formData);
+        setSuccessMessage('Event updated successfully');
+      } else {
+        await createEvent(formData);
+        setSuccessMessage('Event created successfully');
+      }
+      setIsEditing(false);
+      await fetchEventData();
+    } catch (err) {
+      setError(`Failed to save event. Error: ${err.message}`);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  if (loading) return <div className="event-list">Loading events...</div>;
+
+  return (
+    <div className="event-list">
+      <h2>Events Management</h2>
+      {error && <div className="error-message">{error}</div>}
+      {successMessage && <div className="success-message">{successMessage}</div>}
+      <div className="event-actions">
+        <button onClick={handleCreate} className="action-button create">Create New Event</button>
+        <button onClick={() => handleEdit(selectedEvent)} className="action-button edit" disabled={!selectedEvent}>Edit Selected Event</button>
+        <button onClick={() => handleDelete(selectedEvent?.id)} className="action-button delete" disabled={!selectedEvent}>Delete Selected Event</button>
+      </div>
+      {isEditing ? (
+        <form onSubmit={handleSubmit} className="event-form">
+          <input
+            type="text"
+            name="title"
+            value={formData.title}
+            onChange={handleInputChange}
+            placeholder="Event Title"
+            required
+          />
+          <input
+            type="text"
+            name="location"
+            value={formData.location}
+            onChange={handleInputChange}
+            placeholder="Location"
+            required
+          />
+          <input
+            type="date"
+            name="date"
+            value={formData.date}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            type="number"
+            name="fee"
+            value={formData.fee}
+            onChange={handleInputChange}
+            placeholder="Fee"
+            required
+          />
+          <button type="submit" className="action-button create">
+            {selectedEvent ? 'Update Event' : 'Create Event'}
+          </button>
+          <button type="button" onClick={() => setIsEditing(false)} className="action-button delete">
+            Cancel
+          </button>
+        </form>
+      ) : (
+        <>
+          <h3>Upcoming Events</h3>
+          {events.length === 0 ? (
+            <p>No events available at the moment.</p>
+          ) : (
+            events.map((event) => (
+              <div
+                key={event.id}
+                className={`event-item ${selectedEvent?.id === event.id ? 'selected' : ''}`}
+                onClick={() => setSelectedEvent(event)}
+              >
+                <h4>{event.title}</h4>
+                <p>Location: {event.location}</p>
+                <p>Date: {event.date}</p>
+                <p>Fee: RM{event.fee}</p>
+              </div>
+            ))
+          )}
+        </>
+      )}
+    </div>
+  );
+};
 
 export default EventList;

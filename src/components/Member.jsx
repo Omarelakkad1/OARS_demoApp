@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./MemberStyles.css";
+import { registerMember, checkMemberStatus } from '../api';
+import { AuthContext } from '../AuthContext';
 
-function Member() {
+function Member({ setParentIsRegistered }) {
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     phone: "",
     paymentProof: null,
@@ -11,6 +14,27 @@ function Member() {
   });
 
   const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
+  const [isRegistered, setIsRegistered] = useState(false);
+  const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    const checkStatus = async () => {
+      if (user && user.email) {
+        try {
+          const status = await checkMemberStatus(user.email);
+          setIsRegistered(status);
+          if (setParentIsRegistered) {
+            setParentIsRegistered(status);
+          }
+        } catch (error) {
+          console.error("Error checking member status:", error);
+        }
+      }
+    };
+    checkStatus();
+  }, [user, setParentIsRegistered]);
 
   const handleInputChange = (e) => {
     const { name, value, type, checked, files } = e.target;
@@ -22,7 +46,8 @@ function Member() {
 
   const validateForm = () => {
     let newErrors = {};
-    if (!formData.name.trim()) newErrors.name = "Name is required";
+    if (!formData.firstName.trim()) newErrors.firstName = "First name is required";
+    if (!formData.lastName.trim()) newErrors.lastName = "Last name is required";
     if (!formData.email.trim()) newErrors.email = "Email is required";
     else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = "Email is invalid";
     if (!formData.phone.trim()) newErrors.phone = "Phone number is required";
@@ -32,13 +57,54 @@ function Member() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log("Form submitted", formData);
-      alert("Registration successful! We'll contact you soon.");
+      setSubmitting(true);
+      try {
+        const response = await registerMember({
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone
+        });
+        setSubmitMessage("Registration successful! We'll contact you soon.");
+        setIsRegistered(true);
+        if (setParentIsRegistered) {
+          setParentIsRegistered(true);
+        }
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          paymentProof: null,
+          agreeTerms: false
+        });
+      } catch (error) {
+        setSubmitMessage("Registration failed. Please try again later.");
+      }
+      setSubmitting(false);
     }
   };
+
+  if (!user) {
+    return (
+      <div className="Member-container">
+        <h1>Become a Member</h1>
+        <p>Please log in to register as a member or check your membership status.</p>
+      </div>
+    );
+  }
+
+  if (isRegistered) {
+    return (
+      <div className="Member-container">
+        <h1>Welcome, Member!</h1>
+        <p>You are already registered as a member. Enjoy your benefits!</p>
+      </div>
+    );
+  }
 
   return (
     <div className="Member-container">
@@ -47,16 +113,29 @@ function Member() {
         <p>A payment of <b>RM5</b> is required</p>
         
         <div className="form-group">
-          <label htmlFor="name">Full Name</label>
+          <label htmlFor="firstName">First Name</label>
           <input
             type="text"
-            id="name"
-            name="name"
-            value={formData.name}
+            id="firstName"
+            name="firstName"
+            value={formData.firstName}
             onChange={handleInputChange}
-            aria-invalid={errors.name ? "true" : "false"}
+            aria-invalid={errors.firstName ? "true" : "false"}
           />
-          {errors.name && <span className="error">{errors.name}</span>}
+          {errors.firstName && <span className="error">{errors.firstName}</span>}
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="lastName">Last Name</label>
+          <input
+            type="text"
+            id="lastName"
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleInputChange}
+            aria-invalid={errors.lastName ? "true" : "false"}
+          />
+          {errors.lastName && <span className="error">{errors.lastName}</span>}
         </div>
 
         <div className="form-group">
@@ -118,7 +197,11 @@ function Member() {
           {errors.agreeTerms && <span className="error">{errors.agreeTerms}</span>}
         </div>
 
-        <button type="submit">Register as a member</button>
+        <button type="submit" disabled={submitting}>
+          {submitting ? "Registering..." : "Register as a member"}
+        </button>
+
+        {submitMessage && <div className="submit-message">{submitMessage}</div>}
       </form>
     </div>
   );

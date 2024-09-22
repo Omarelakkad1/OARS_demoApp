@@ -1,13 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { signup as apiSignup } from '../api';
+import { useAuth } from '../AuthContext';
 import "../signup.css";
-import { Link } from 'react-router-dom';
 
 function Signup() {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    setError('');
+    try {
+      const response = await apiSignup(firstName, lastName, email, phone);
+      login(response.user, response.token);
+      navigate('/'); // Redirect to home page after successful signup
+    } catch (error) {
+      setError(error.message || "Signup failed. Please try again.");
+    }
+  };
+
   return (
     <div className="signup d-flex justify-content-center align-items-center">
       <div className="form_container p-5">
-        <form>
+        <form onSubmit={handleSignup}>
           <h3 className="text-center">Sign Up</h3>
+          {error && <div className="alert alert-danger">{error}</div>}
           <div className="mb-3">
             <label htmlFor="fname">First Name</label>
             <input
@@ -15,6 +38,9 @@ function Signup() {
               id="fname"
               className="form-control"
               placeholder="Enter First Name"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
             />
           </div>
           <div className="mb-3">
@@ -24,6 +50,9 @@ function Signup() {
               id="lname"
               className="form-control"
               placeholder="Enter Last Name"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
             />
           </div>
           <div className="mb-3">
@@ -33,15 +62,21 @@ function Signup() {
               id="email"
               className="form-control"
               placeholder="Enter Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
-          <div className="mb-2">
-            <label htmlFor="password">Password</label>
+          <div className="mb-3">
+            <label htmlFor="phone">Phone Number</label>
             <input
-              type="password"
-              id="password"
+              type="tel"
+              id="phone"
               className="form-control"
-              placeholder="Enter Password"
+              placeholder="Enter Phone Number"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              required
             />
           </div>
           <div className="d-grid mt-2">
@@ -50,7 +85,7 @@ function Signup() {
             </button>
           </div>
           <p className="text-end mt-2">
-            Login <Link to="/Login">Login</Link>
+            Already have an account? <Link to="/login">Login</Link>
           </p>
         </form>
       </div>

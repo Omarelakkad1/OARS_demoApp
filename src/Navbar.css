@@ -63,13 +63,24 @@
   transition: all 0.2s ease-in-out;
 }
 
-.nav-menu li:last-child .nav-links {
-  background-color: #617c49;
+.nav-links-green {
+  text-decoration: none;
   color: #fff;
+  background-color: #617c49;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding: 0.7rem 1rem;
+  white-space: nowrap;
+  border-radius: 4px;
 }
 
-.nav-menu li:last-child .nav-links:hover {
-  background-color: #151516;
+.nav-links-green:hover {
+  background-color: #4a6038;
+  transition: all 0.2s ease-in-out;
+}
+
+.nav-links-green i {
+  padding-right: 10px;
 }
 
 .menu-icons {
@@ -105,14 +116,14 @@
     transition: 0.3s ease-in-out;
   }
 
-  .nav-links {
+  .nav-links, .nav-links-green {
     display: block;
     width: 100%;
     font-size: 1.2rem;
     padding: 2rem 0;
   }
 
-  .nav-links:hover {
+  .nav-links:hover, .nav-links-green:hover {
     background: #617c49;
     transition: none;
   }
@@ -122,7 +133,7 @@
     padding: 1.5rem;
   }
 
-  .nav-menu li:last-child .nav-links {
+  .nav-menu li:last-child .nav-links-green {
     background: #617c49;
     text-decoration: none;
     color: #fff;

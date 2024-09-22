@@ -1,0 +1,69 @@
+.membership-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 2rem 6rem;
+}
+
+.membership-section {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.membership-section h2 {
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.login-prompt {
+  text-align: center;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.login-prompt p {
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+.login-button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+  background-color: #45a049;
+}
+
+.login-prompt a:not(.login-button) {
+  color: #4CAF50;
+  text-decoration: none;
+}
+
+.login-prompt a:not(.login-button):hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 850px) {
+  .membership-container {
+    padding: 2rem;
+  }
+
+  .membership-section {
+    padding: 1.5rem;
+  }
+
+  .login-prompt {
+    padding: 1.5rem;
+  }
+}

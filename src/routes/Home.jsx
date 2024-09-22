@@ -1,12 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Hero from '../components/Hero';
 import Navbar from '../components/Navbar';
-
 import Destination from '../components/destination';
 import Trip from '../components/trip';
 import Footer from '../components/Footer';
+import { useAuth } from '../AuthContext';
+import { checkMemberStatus } from '../api';
 
 function Home() {
+  const { isLoggedIn, user } = useAuth();
+  const [isMember, setIsMember] = useState(false);
+
+  useEffect(() => {
+    const checkStatus = async () => {
+      if (isLoggedIn && user && user.email) {
+        try {
+          const status = await checkMemberStatus(user.email);
+          setIsMember(status);
+        } catch (error) {
+          console.error("Error checking member status:", error);
+        }
+      }
+    };
+    checkStatus();
+  }, [isLoggedIn, user]);
+
   return (
     <>
       <Navbar />
@@ -17,12 +35,11 @@ function Home() {
         text="MMU Cyberjaya"
         buttonText="Become a Member"
         url="/membership"
-        btnClass="show"
+        btnClass={isLoggedIn && !isMember ? "show" : "hide"}
       />
       <Destination />
       <Trip />
       <Footer/>
-      
     </>
   );
 }

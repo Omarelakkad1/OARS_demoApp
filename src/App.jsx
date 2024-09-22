@@ -9,24 +9,29 @@ import Contact from "./routes/Contact";
 import Membership from "./routes/Membership";
 import Events from "./routes/Events";
 import FAQ from "./routes/FAQ"; 
+import { AuthProvider } from "./AuthContext";
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/service" element={<Service />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} /> 
-          <Route path="/membership" element={<Membership />} /> 
-          <Route path="/events" element={<Events />} /> 
-          <Route path="/faq" element={<FAQ />} /> 
-        </Routes>
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <div className="App">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/service" element={<Service />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} /> 
+            <Route path="/membership" element={<Membership />} /> 
+            <Route path="/events" element={<Events />} /> 
+            <Route path="/faq" element={<FAQ />} /> 
+          </Routes>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 

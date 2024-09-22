@@ -33,7 +33,6 @@ if(!isset($_SESSION['auser']))
 		<!-- Main CSS -->
         <link rel="stylesheet" href="assets/css/style.css">
 		
-
     </head>
     <body>
 	
@@ -144,7 +143,7 @@ if(!isset($_SESSION['auser']))
 									</div>
 									<div class="dash-widget-info">
 										
-									<h3><?php $sql = "SELECT * FROM events WHERE `date` BETWEEN CURDATE() - INTERVAL 10 DAY AND CURDATE();";
+									<h3><?php $sql = "SELECT * FROM events";
 										$query = $con->query($sql);
                 						echo "$query->num_rows";?></h3>
 										
@@ -158,7 +157,6 @@ if(!isset($_SESSION['auser']))
 						</div>
 					</div>
 
-
 					<div class="row">
 						<div class="col-xl-3 col-sm-6 col-12">
 							<div class="card">
@@ -171,7 +169,7 @@ if(!isset($_SESSION['auser']))
 									</div>
 									<div class="dash-widget-info">
 										
-									<h3><?php $sql = "SELECT * FROM competition WHERE `date` BETWEEN CURDATE() - INTERVAL 10 DAY AND CURDATE();";
+									<h3><?php $sql = "SELECT * FROM competition";
 										$query = $con->query($sql);
                 						echo "$query->num_rows";?></h3>
 										
@@ -195,7 +193,7 @@ if(!isset($_SESSION['auser']))
 									</div>
 									<div class="dash-widget-info">
 										
-									<h3><?php $sql = "SELECT * FROM competition WHERE `date` < NOW() - INTERVAL 10 DAY;";
+									<h3><?php $sql = "SELECT * FROM competition WHERE `date` < NOW()";
 										$query = $con->query($sql);
                 						echo "$query->num_rows";?></h3>
 										
@@ -219,7 +217,7 @@ if(!isset($_SESSION['auser']))
 									</div>
 									<div class="dash-widget-info">
 										
-									<h3><?php $sql = "SELECT * FROM events WHERE `date` < NOW() - INTERVAL 10 DAY;";
+									<h3><?php $sql = "SELECT * FROM events WHERE `date` < NOW()";
 										$query = $con->query($sql);
                 						echo "$query->num_rows";?></h3>
 										
@@ -306,6 +304,47 @@ if(!isset($_SESSION['auser']))
 							</div>
 						</div>
 					</div>
+
+					<!-- New Section: Registered Students -->
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-body">
+									<h4 class="card-title">Registered Students</h4>
+									<div class="table-responsive">
+										<table class="table table-hover table-center mb-0">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Email</th>
+													<th>Phone</th>
+												</tr>
+											</thead>
+											<tbody>
+												<?php
+												$sql = "SELECT * FROM student ORDER BY ID DESC LIMIT 10";
+												$result = $con->query($sql);
+												if ($result->num_rows > 0) {
+													while($row = $result->fetch_assoc()) {
+														echo "<tr>";
+														echo "<td>" . htmlspecialchars($row["First Name"] . " " . $row["Last Name"]) . "</td>";
+														echo "<td>" . htmlspecialchars($row["Email"]) . "</td>";
+														echo "<td>" . htmlspecialchars($row["Phone No."]) . "</td>";
+														echo "</tr>";
+													}
+												} else {
+													echo "<tr><td colspan='3'>No registered students found</td></tr>";
+												}
+												?>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /New Section: Registered Students -->
+
 				</div>			
 			</div>
 			<!-- /Page Wrapper -->
@@ -328,7 +367,38 @@ if(!isset($_SESSION['auser']))
 		<script src="assets/js/chart.morris.js"></script>
 		
 	
-		<script  src="assets/js/script.js"></script>
+		<script src="assets/js/script.js"></script>
+		
+		<script>
+			// Make the cards clickable
+			document.querySelectorAll('.card').forEach(card => {
+				card.style.cursor = 'pointer';
+				card.addEventListener('click', function() {
+					let link = this.querySelector('h6.text-muted').textContent.toLowerCase();
+					if (link === 'student') {
+						window.location.href = 'student.php';
+					} else if (link === 'staff') {
+						window.location.href = 'staff.php';
+					} else if (link === 'member') {
+						window.location.href = 'member.php';
+					} else if (link === 'event') {
+						window.location.href = 'eventview.php';
+					} else if (link === 'competition') {
+						window.location.href = 'competitionview.php';
+					} else if (link === 'past competition') {
+						window.location.href = 'competitionview.php?past=true';
+					} else if (link === 'past event') {
+						window.location.href = 'eventview.php?past=true';
+					} else if (link === 'feedback') {
+						window.location.href = 'feedbackview.php';
+					} else if (link === 'news') {
+						window.location.href = 'newsview.php';
+					} else if (link === 'announcement') {
+						window.location.href = 'annoucementview.php';
+					}
+				});
+			});
+		</script>
 		
     </body>
 

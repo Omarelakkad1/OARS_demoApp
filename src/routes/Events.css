@@ -1,0 +1,21 @@
+.events-container {
+  padding: 2rem 6rem;
+}
+
+.events-section {
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.events-section h2 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 850px) {
+  .events-container {
+    padding: 2rem;
+  }
+}
