@@ -305,45 +305,7 @@ if(!isset($_SESSION['auser']))
 						</div>
 					</div>
 
-					<!-- New Section: Registered Students -->
-					<div class="row">
-						<div class="col-md-12">
-							<div class="card">
-								<div class="card-body">
-									<h4 class="card-title">Registered Students</h4>
-									<div class="table-responsive">
-										<table class="table table-hover table-center mb-0">
-											<thead>
-												<tr>
-													<th>Name</th>
-													<th>Email</th>
-													<th>Phone</th>
-												</tr>
-											</thead>
-											<tbody>
-												<?php
-												$sql = "SELECT * FROM student ORDER BY ID DESC LIMIT 10";
-												$result = $con->query($sql);
-												if ($result->num_rows > 0) {
-													while($row = $result->fetch_assoc()) {
-														echo "<tr>";
-														echo "<td>" . htmlspecialchars($row["First Name"] . " " . $row["Last Name"]) . "</td>";
-														echo "<td>" . htmlspecialchars($row["Email"]) . "</td>";
-														echo "<td>" . htmlspecialchars($row["Phone No."]) . "</td>";
-														echo "</tr>";
-													}
-												} else {
-													echo "<tr><td colspan='3'>No registered students found</td></tr>";
-												}
-												?>
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- /New Section: Registered Students -->
+					
 
 				</div>			
 			</div>
