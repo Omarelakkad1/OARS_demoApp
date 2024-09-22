@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="top">
         <div className="logo-section">
           <h1>OARS</h1>
-          <p>CHOOSE YOUR FAVOURITE DESTINATION</p>
+          <p>Outdoor Activities and Recreational Society</p>
         </div>
         <div className="social-icons">
           <a href="/">
