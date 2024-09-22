@@ -27,9 +27,6 @@ class Navbar extends Component {
                         </li>
                     ))}
                     <li>
-                        <Link to="/signup" className="nav-links"> {/* Apply nav-links class */}
-                            Sign Up
-                        </Link>
                     </li>
                 </ul>
             </nav>

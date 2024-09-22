@@ -13,6 +13,12 @@ export const Navmenuitems = [
       icon: "fa-solid fa-circle-user",
     },
     {
+      title: "Events",
+      url: "/events",
+      cName: "nav-links",
+      icon: "fa-solid fa-briefcase",
+    },
+    {
       title: "Service",
       url: "/service",
       cName: "nav-links",
@@ -25,9 +31,35 @@ export const Navmenuitems = [
       icon: "fa-solid fa-address-book",
     },
     {
+      title: "",
+      url: "/",
+      cName: "",
+    },
+    {
+      title: "",
+      url: "/",
+      cName: "",
+    },
+    {
+      title: "",
+      url: "/",
+      cName: "",
+    },
+    {
+      title: "",
+      url: "/",
+      cName: "",
+    },
+    {
+      title: "",
+      url: "/",
+      cName: "",
+    },
+    {
       title: "Sign up",
       url: "/signup",
-      cName: "nav-links-mobile",
+      cName: "nav-links",
+      icon: "fa-solid fa-right-to-bracket",
     },
   ];
   
