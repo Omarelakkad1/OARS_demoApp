@@ -7,6 +7,7 @@ import About from "./routes/About"; // Correct path for About
 import Service from "./routes/Service"; // Correct path for Service
 import Contact from "./routes/Contact"; // Correct path for Contact
 import Membership from "./routes/Membership";
+import Events from "./routes/Events";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
            <Route path="/login" element={<Login />}  />
            <Route path="/signup" element={<Signup />} /> 
            <Route path="/membership" element={<Membership />} /> 
+           <Route path="/events" element={<Events />} /> 
         </Routes>
       </div>
     </Router>

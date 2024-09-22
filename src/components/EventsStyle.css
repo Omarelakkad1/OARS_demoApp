@@ -1,0 +1,74 @@
+.events-container {
+    margin: 4rem 6rem;
+    color: #2a2a2a;
+  }
+  
+  .events-container h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #617c49;
+  }
+  
+  .events-controls {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 1rem;
+    display: block;
+    
+  }
+  
+  .panel1 {
+    padding-top: 50px;
+    position:static;
+    z-index: 0;
+    border-bottom: #617c49 2px solid;
+    width: 100%;
+  }
+  
+  ul li {
+    list-style: none;
+  }
+  .container {
+    align-items:baseline;
+    justify-content: left;
+   
+    border-radius: 10px;
+  }
+
+  
+  
+  .events-container button {
+    padding: 0.8rem 2rem;
+    background-color: #617c49;
+    color: #fff;
+    border: none;
+    margin: 0.5px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+   
+    text-align: center;
+  }
+  
+  .events-container button:hover {
+    background-color: #222;
+  }
+  
+  /* Responsive styles for smaller screens */
+  @media screen and (max-width: 850px) {
+    .events-container {
+      margin: 4rem 2rem;
+    }
+  
+  
+  
+    
+  
+    .events-container button {
+      width: 100%; /* Make sure the button is full width */
+      padding: 1rem; /* Increase padding for better touch support */
+      font-size: 1.2rem; /* Slightly larger font on smaller screens */
+    }
+  }
+  
