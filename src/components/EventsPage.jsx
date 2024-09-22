@@ -1,58 +1,28 @@
-// EventsPage.jsx
 import React from "react";
 import "./EventsStyle.css";
-import EventList from "./EventList"; // Adjust the path if necessary
+import EventList from "./EventList";
 
 function EventsPage() {
   return (
     <div className="events-container">
-      <h1>Events Page</h1>
-      <div className="Events-controls">
-        <button
-          type="button"
-          className="btn btn-primary"
-          data-toggle="modal"
-          data-target="#createEventsModal"
-        >
-          Create
+      <h1>Upcoming Events</h1>
+      <div className="events-controls">
+        <button className="btn-create" data-toggle="modal" data-target="#createEventsModal">
+          Create Event
         </button>
-        <button
-          type="button"
-          className="btn btn-primary"
-          data-toggle="modal"
-          data-target="#editEventsModal"
-        >
-          Edit
+        <button className="btn-edit" data-toggle="modal" data-target="#editEventsModal">
+          Edit Events
         </button>
       </div>
-      <div className="container">
-        <ul>
-          {EventList.map((event) => (
-            <li key={event.id}>
-              <div>
-                <div
-                  className="panel1 panel-default"
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => (window.location.href = event.link)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") window.location.href = event.link;
-                  }}
-                >
-                  <div className="panel-heading">
-                    <h3 className="panel-title">{event.title}</h3>
-                  </div>
-                  <div className="panel-body">
-                    <p>{event.description}</p>
-                  </div>
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+      <div className="events-list">
+        {EventList.map((event) => (
+          <div key={event.id} className="event-card" onClick={() => window.location.href = event.link} tabIndex={0}>
+            <h3 className="event-title">{event.title}</h3>
+            <p className="event-date">{new Date(event.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+            <p className="event-description">{event.description}</p>
+          </div>
+        ))}
       </div>
-
-      
     </div>
   );
 }
