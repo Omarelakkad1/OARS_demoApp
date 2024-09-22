@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import { login as apiLogin } from '../api';
 import { useAuth } from '../AuthContext';
 import "../Login.css";
+=======
+import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
+import "../Login.css"; 
+>>>>>>> 8cb3c90916415e6dc0cbbec10d526bf7bab9da25
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -19,6 +25,7 @@ function Login() {
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+<<<<<<< HEAD
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
@@ -30,6 +37,15 @@ function Login() {
       setError(error.message || "Login failed. Please try again.");
     }
   };
+=======
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000);
+
+    return () => clearInterval(intervalId);
+  }, [images.length]);
+>>>>>>> 8cb3c90916415e6dc0cbbec10d526bf7bab9da25
 
   const goToImage = (index) => {
     setCurrentImageIndex(index);
@@ -80,6 +96,7 @@ function Login() {
                   required
                 />
               </div>
+<<<<<<< HEAD
               <div className="input-group mb-5 d-flex justify-content-between">
                 <div className="form-check">
                   <input type="checkbox" className="form-check-input" id="formCheck" />
@@ -100,6 +117,11 @@ function Login() {
                 <img src="/images/google.png" style={{ width: "20px" }} className="me-2" alt="Google" />
                 <small>Sign In with Google</small>
               </button>
+=======
+            </div>
+            <div className="input-group mb-3">
+              <button className="btn btn-lg btn-success w-100 fs-6">Login</button>
+>>>>>>> 8cb3c90916415e6dc0cbbec10d526bf7bab9da25
             </div>
             <div className="row">
               <small>Don't have an account? <Link to="/signup">Sign Up</Link></small>
