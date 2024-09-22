@@ -1,5 +1,7 @@
 .Member-container {
-  margin: 4rem 6rem;
+  margin: 4rem auto;
+  max-width: 600px;
+  padding: 0 2rem;
   color: #2a2a2a;
 }
 
@@ -10,59 +12,150 @@
 }
 
 .Member-container form {
-  padding-top: 3rem;
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-  margin: auto;
   background-color: #f9f9f9;
   padding: 2rem;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
+.form-group {
+  margin-bottom: 1.5rem;
+}
 
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
 
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"] {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
 
+.file-upload-label {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background-color: #617c49;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
+.file-upload-label:hover {
+  background-color: #4a6038;
+}
 
+.form-group.checkbox {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  margin-bottom: 2.5rem;
+  position: relative;
+}
 
-.Member-container button {
+.form-group.checkbox .checkbox-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.form-group.checkbox input[type="checkbox"] {
+  margin-right: 0.5rem;
+  width: 18px;
+  height: 18px;
+  appearance: none;
+  border: 2px solid #617c49;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.form-group.checkbox input[type="checkbox"]:checked {
+  background-color: #617c49;
+}
+
+.form-group.checkbox input[type="checkbox"]:checked::before {
+  content: '✓';
+  position: absolute;
+  color: white;
+  font-size: 14px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.form-group.checkbox label {
+  font-weight: normal;
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.error {
+  color: #d32f2f;
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  display: block;
+}
+
+.terms-link {
+  color: #617c49;
+  text-decoration: underline;
+}
+
+.terms-link:hover {
+  color: #4a6038;
+}
+
+.Member-container button[type="submit"] {
   padding: 0.8rem 2rem;
   background-color: #617c49;
   color: #fff;
   border: none;
-  border-radius: 0.3rem;
+  border-radius: 4px;
   cursor: pointer;
   font-size: 1.1rem;
   transition: background-color 0.3s ease;
-  width: 100%; /* Full width on small screens */
+  width: 100%;
   text-align: center;
+  margin-top: 1.5rem;
 }
 
-.Member-container button:hover {
-  background-color: #222;
+.Member-container button[type="submit"]:hover {
+  background-color: #4a6038;
+}
+
+.Member-container button[type="submit"]:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
 }
 
 /* Responsive styles for smaller screens */
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 600px) {
   .Member-container {
-    margin: 4rem 2rem;
+    margin: 2rem auto;
+    padding: 0 1rem;
   }
 
   .Member-container form {
-    width: 100%; /* Adjust the form to full width on small screens */
     padding: 1.5rem;
   }
 
-  .Member-container input,
-  .Member-container textarea {
-    width: 100%; /* Ensure inputs take full width on small screens */
-  }
-
-  .Member-container button {
-    width: 100%; /* Make sure the button is full width */
-    padding: 1rem; /* Increase padding for better touch support */
-    font-size: 1.2rem; /* Slightly larger font on smaller screens */
+  .Member-container button[type="submit"] {
+    padding: 1rem;
+    font-size: 1.2rem;
   }
 }
