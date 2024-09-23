@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { signup as apiSignup } from '../api';
 import { useAuth } from '../AuthContext';
-import "../signup.css";
+import "../Signup.css";
 
 function Signup() {
   const [firstName, setFirstName] = useState('');
@@ -14,17 +14,29 @@ function Signup() {
   const navigate = useNavigate();
   const { login } = useAuth();
 
+  const images = [
+    "/images/commuiteRecruitment.jpg",
+    "/images/FitnessNightImage.jpg",
+    "/images/MemberShip.jpg",
+  ];
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [images.length]);
+
   const handleSignup = async (e) => {
     e.preventDefault();
     setError('');
     try {
       const response = await apiSignup(firstName, lastName, email, phone, password);
       if (response.status === "error") {
-        if (response.message === "Email already exists") {
-          setError("Email already exists. Please use a different email or log in.");
-        } else {
-          setError(response.message || "Signup failed. Please try again.");
-        }
+        setError(response.message || "Signup failed. Please try again.");
         return;
       }
       login(response.user, response.token);
@@ -35,80 +47,116 @@ function Signup() {
   };
 
   return (
-    <div className="signup d-flex justify-content-center align-items-center">
-      <div className="form_container p-5">
-        <form onSubmit={handleSignup}>
-          <h3 className="text-center">Sign Up</h3>
-          {error && <div className="alert alert-danger">{error}</div>}
-          <div className="mb-3">
-            <label htmlFor="fname">First Name</label>
-            <input
-              type="text"
-              id="fname"
-              className="form-control"
-              placeholder="Enter First Name"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              required
-            />
+    <div className="container">
+      <div className="row border rounded-5 p-1 bg-white shadow-sm box-area">
+        {/* Left side - Signup form */}
+        <div className="col-md-6 left-box">
+          <div className="row align-items-center">
+            <div className="header-text mb-4">
+              <h2>Sign Up</h2>
+              <p>Join our community now.</p>
+            </div>
+            {error && <div className="alert alert-danger">{error}</div>}
+            <form onSubmit={handleSignup}>
+              <div className="input-group mb-3">
+                <input
+                  type="text"
+                  className="form-control form-control-sm bg-light fs-6"
+                  placeholder="First Name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="input-group mb-3">
+                <input
+                  type="text"
+                  className="form-control form-control-sm bg-light fs-6"
+                  placeholder="Last Name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="input-group mb-3">
+                <input
+                  type="email"
+                  className="form-control form-control-sm bg-light fs-6"
+                  placeholder="Email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="input-group mb-3">
+                <input
+                  type="tel"
+                  className="form-control form-control-sm bg-light fs-6"
+                  placeholder="Phone Number"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="input-group mb-3">
+                <input
+                  type="password"
+                  className="form-control form-control-sm bg-light fs-6"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="input-group mb-4">
+                <button type="submit" className="btn btn-success w-100 fs-6">Sign Up</button>
+              </div>
+            </form>
+            <div className="row mb-4">
+              <small>Already have an account? <Link to="/login">Login</Link></small>
+            </div>
           </div>
-          <div className="mb-3">
-            <label htmlFor="lname">Last Name</label>
-            <input
-              type="text"
-              id="lname"
-              className="form-control"
-              placeholder="Enter Last Name"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              required
-            />
+        </div>
+
+        {/* Right side - Image carousel */}
+        <div className="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column right-box">
+          <div className="image-carousel" style={{ position: 'relative', width: '100%', paddingBottom: '100%', overflow: 'hidden', borderRadius: '15px' }}>
+            {images.map((img, index) => (
+              <img
+                key={index}
+                src={img}
+                alt={`Featured ${index + 1}`}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: `${(index - currentImageIndex) * 100}%`,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  transition: 'left 0.5s ease-in-out',
+                  borderRadius: '15px',
+                }}
+              />
+            ))}
+            <div className="dots-container" style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)' }}>
+              {images.map((_, index) => (
+                <span
+                  key={index}
+                  style={{
+                    display: 'inline-block',
+                    width: '10px',
+                    height: '10px',
+                    borderRadius: '50%',
+                    backgroundColor: currentImageIndex === index ? '#fff' : 'rgba(255, 255, 255, 0.5)',
+                    margin: '0 5px',
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => setCurrentImageIndex(index)}
+                ></span>
+              ))}
+            </div>
           </div>
-          <div className="mb-3">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              id="email"
-              className="form-control"
-              placeholder="Enter Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="phone">Phone Number</label>
-            <input
-              type="tel"
-              id="phone"
-              className="form-control"
-              placeholder="Enter Phone Number"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              id="password"
-              className="form-control"
-              placeholder="Enter Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-          <div className="d-grid mt-2">
-            <button type="submit" className="btn btn-success">
-              Sign Up
-            </button>
-          </div>
-          <p className="text-end mt-2">
-            Already have an account? <Link to="/login">Login</Link>
-          </p>
-        </form>
+        </div>
       </div>
     </div>
   );
