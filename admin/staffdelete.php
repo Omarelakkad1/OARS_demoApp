@@ -1,26 +1,33 @@
 <?php
-include("config.php");
-$uid = $_GET['id'];
+session_start();
+require("config.php");
 
-// view code//
-$sql = "SELECT * FROM staff where ID ='$uid'";
-$result = mysqli_query($con, $sql);
-
-
-//end view code
-$msg="";
-$sql = "DELETE FROM staff WHERE ID = {$uid}";
-$result = mysqli_query($con, $sql);
-if($result == true)
+if(!isset($_SESSION['auser']))
 {
-	$msg="<p class='alert alert-success'>Agent Deleted</p>";
-	header("Location:staff.php?msg=$msg");
+	header("location:index.php");
+	exit();
+}
+
+if(isset($_GET['id']))
+{
+	$id = intval($_GET['id']);
+	
+	$query = mysqli_query($con, "DELETE FROM staff WHERE ID = '$id'");
+	
+	if($query)
+	{
+		$msg = "Staff member deleted successfully";
+	}
+	else
+	{
+		$msg = "Error deleting staff member";
+	}
 }
 else
 {
-	$msg="<p class='alert alert-warning'>Agent not Deleted</p>";
-		header("Location:staff.php?msg=$msg");
+	$msg = "Invalid request";
 }
 
-mysqli_close($con);
+header("location:staff.php?msg=".urlencode($msg));
+exit();
 ?>
