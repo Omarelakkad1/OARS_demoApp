@@ -83,8 +83,7 @@ if(!isset($_SESSION['auser']))
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>First Name</th>
-													<th>Last Name</th>
+                                                    <th>Name</th>
                                                     <th>Email</th>
 													<th>Title</th>
                                                     <th>Feedback</th>
@@ -97,23 +96,20 @@ if(!isset($_SESSION['auser']))
                                             <tbody>
 											<?php
 													
-													$query = mysqli_query($con, "SELECT feedback_form.*, student.* 
-													FROM `feedback_form` 
-													INNER JOIN student ON `feedback_form`.ID = student.ID");
+													$query = mysqli_query($con, "SELECT * FROM `feedback_form`");
 												$cnt=1;
 												while($row=mysqli_fetch_array($query))
 													{
 											?>
                                                 <tr>
                                                     <td><?php echo $cnt; ?></td>
-                                                    <td><?php echo $row['First Name']; ?></td>
-													<td><?php echo $row['Last Name']; ?></td>
+                                                    <td><?php echo $row['Name']; ?></td>
                                                     <td><?php echo $row['Email']; ?></td>
-													<td><?php echo $row['2']; ?></td>
-                                                    <td><?php echo $row['3']; ?></td>
-                                                    <td><?php echo $row['4']; ?></td>
-													<td><a href="feedbackedit.php?id=<?php echo $row['0']; ?>"><button class="btn btn-info">Edit</button></a>
-                                                    <a href="feedbackdelete.php?id=<?php echo $row['0']; ?>"><button class="btn btn-danger">Delete</button></a></td>
+													<td><?php echo $row['Title']; ?></td>
+                                                    <td><?php echo $row['Description']; ?></td>
+                                                    <td><?php echo $row['Submission Date']; ?></td>
+													<td><a href="feedbackedit.php?id=<?php echo $row['ID']; ?>"><button class="btn btn-info">Edit</button></a>
+                                                    <a href="feedbackdelete.php?id=<?php echo $row['ID']; ?>"><button class="btn btn-danger">Delete</button></a></td>
                                                 </tr>
                                                 <?php
 												$cnt=$cnt+1;

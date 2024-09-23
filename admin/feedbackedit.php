@@ -12,20 +12,23 @@ $msg="";
 if(isset($_POST['update']))
 {
 	$fid = $_GET['id'];
-	$feedback=$_POST['Description'];
+	$name = $_POST['Name'];
+	$email = $_POST['Email'];
+	$title = $_POST['Title'];
+	$feedback = $_POST['Description'];
 		
-	$sql="UPDATE feedback_form SET Description = '{$feedback}' WHERE ID = {$fid}";
-	$result=mysqli_query($con,$sql);
+	$sql = "UPDATE feedback_form SET Name = '{$name}', Email = '{$email}', Title = '{$title}', Description = '{$feedback}' WHERE ID = {$fid}";
+	$result = mysqli_query($con, $sql);
 	if($result == true)
-		{
-			$msg="<p class='alert alert-success'>Feedback Updated Successfully</p>";
-			header("Location:feedbackview.php?msg=$msg");		
-		}
-		else
-		{
-			$msg="<p class='alert alert-warning'>Feedback Not Updated</p>";
-			header("Location:feedbackview.php?msg=$msg");
-		}
+	{
+		$msg = "<p class='alert alert-success'>Feedback Updated Successfully</p>";
+		header("Location:feedbackview.php?msg=$msg");		
+	}
+	else
+	{
+		$msg = "<p class='alert alert-warning'>Feedback Not Updated</p>";
+		header("Location:feedbackview.php?msg=$msg");
+	}
 }
 ?>
  
@@ -93,7 +96,7 @@ if(isset($_POST['update']))
 								$fid = $_GET['id'];
 								$sql = "SELECT * FROM feedback_form where ID = {$fid}";
 								$result = mysqli_query($con, $sql);
-								while($row = mysqli_fetch_row($result))
+								while($row = mysqli_fetch_assoc($result))
 								{
 								?>
 								<form method="post">
@@ -106,21 +109,38 @@ if(isset($_POST['update']))
 												<div class="form-group row">
 													<label class="col-lg-2 col-form-label">Feedback Id</label>
 													<div class="col-lg-9">
-														<input type="text" class="form-control" name="fid" value="<?php echo $row['0']; ?>" disabled>
+														<input type="text" class="form-control" name="fid" value="<?php echo $row['ID']; ?>" disabled>
+													</div>
+												</div>
+												<div class="form-group row">
+													<label class="col-lg-2 col-form-label">Name</label>
+													<div class="col-lg-9">
+														<input type="text" class="form-control" name="Name" required="" value="<?php echo $row['Name']; ?>">
+													</div>
+												</div>
+												<div class="form-group row">
+													<label class="col-lg-2 col-form-label">Email</label>
+													<div class="col-lg-9">
+														<input type="email" class="form-control" name="Email" required="" value="<?php echo $row['Email']; ?>">
+													</div>
+												</div>
+												<div class="form-group row">
+													<label class="col-lg-2 col-form-label">Title</label>
+													<div class="col-lg-9">
+														<input type="text" class="form-control" name="Title" required="" value="<?php echo $row['Title']; ?>">
 													</div>
 												</div>
 												<div class="form-group row">
 													<label class="col-lg-2 col-form-label">Feedback</label>
 													<div class="col-lg-9">
-														<input type="text" class="form-control" name="Description" required="" value="<?php echo $row['3']; ?>">
-														<small>Edit the new feedback.</small>
+														<textarea class="form-control" name="Description" required="" rows="4"><?php echo $row['Description']; ?></textarea>
 													</div>
 												</div>
 												
 											</div>
 										</div>
 										<div class="text-left">
-											<input type="submit" class="btn btn-primary"  value="Submit" name="update" style="margin-left:200px;">
+											<input type="submit" class="btn btn-primary" value="Update" name="update" style="margin-left:200px;">
 										</div>
 									</form>
 									<?php } ?>

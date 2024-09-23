@@ -3,10 +3,10 @@ import axios from 'axios';
 const API_BASE_URL = 'http://localhost/MAIN%20REPO/OARS_demoApp/admin';
 
 const handleApiResponse = (response) => {
-  if (response.data && response.data.status === 'success') {
+  if (response.data && (response.data.status === 'success' || response.data.message)) {
     return response.data;
   } else {
-    throw new Error(response.data.message || 'An error occurred');
+    throw new Error(response.data.error || 'An error occurred');
   }
 };
 
@@ -134,6 +134,27 @@ export const logout = async () => {
     return handleApiResponse(response);
   } catch (error) {
     console.error('Error logging out:', error);
+    throw error;
+  }
+};
+
+export const submitFeedback = async (feedbackData) => {
+  try {
+    console.log('Submitting feedback:', feedbackData);
+    const response = await axios.post(`${API_BASE_URL}/api_feedback.php`, feedbackData);
+    console.log('Feedback submission response:', response.data);
+    return handleApiResponse(response);
+  } catch (error) {
+    console.error('Error submitting feedback:', error);
+    if (error.response) {
+      console.error('Error response:', error.response.data);
+      console.error('Error status:', error.response.status);
+      console.error('Error headers:', error.response.headers);
+    } else if (error.request) {
+      console.error('Error request:', error.request);
+    } else {
+      console.error('Error message:', error.message);
+    }
     throw error;
   }
 };

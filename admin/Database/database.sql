@@ -103,6 +103,8 @@ CREATE TABLE `events` (
 CREATE TABLE `feedback_form` (
   `ID` int(10) NOT NULL,
   `StudentID` int(10) NOT NULL,
+  `Name` varchar(255) NOT NULL,
+  `Email` varchar(255) NOT NULL,
   `Title` varchar(255) NOT NULL,
   `Description` varchar(255) NOT NULL,
   `Submission Date` date NOT NULL
