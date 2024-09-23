@@ -1,92 +1,68 @@
-/* Signup Page Background and Layout */
-.signup {
-  background-image: url('/images/signupBackground.jpg'); 
-  background-size: cover; 
-  background-position: center;
-  background-repeat: no-repeat; 
-  height: 100vh; 
-  width: 100%;
-  display: flex; 
-  justify-content: center; 
-  align-items: center; 
-  padding: 20px; 
-  box-sizing: border-box; 
+/* Container styling */
+.container {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Form Container Styles */
-.form_container {
-  width: 40%; 
-  max-width: 500px; 
-  min-width: 300px; 
-  padding: 40px 30px; 
-  background-color: white; 
-  border-radius: 15px; 
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); 
-  box-sizing: border-box; 
-  text-align: center; 
+.box-area {
+  width: 700px; /* Reduced width for a smaller look */
+  background: white;
+  padding: 15px; /* Reduced padding for a compact design */
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Align Labels to the Left */
-.form_container label {
-  display: block;
-  font-size: 1rem;
-  color: #333;
-  text-align: left; 
-  margin-bottom: 5px; 
+/* Left box styling */
+.left-box {
+  padding: 20px 15px; /* Reduced padding */
 }
 
-/* Form Field Styles */
-.form-control {
-  width: 100%;
-  padding: 10px 15px; 
-  margin-bottom: 20px;
-  border: 1px solid #ccc; 
-  border-radius: 8px; 
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); 
-  font-size: 1rem;
-  color: #333; 
+/* Right box styling (image carousel) */
+.right-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px; /* Reduced padding */
 }
 
-/* Form Button Styles */
-.btn-success {
-  width: 100%;
-  padding: 10px 15px; 
-  background-color: #617c49; 
-  color: #fff; 
-  font-size: 1.1rem; 
-  font-weight: 600; 
-  border: none; 
-  border-radius: 8px; 
+/* Form input styling */
+.form-control-sm {
+  font-size: 14px; /* Smaller input text */
+  padding: 10px;
+}
+
+/* Image carousel dots */
+.dots-container {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: 10px;
+}
+
+.dots-container span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 0 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease; 
 }
 
-.btn-success:hover {
-  background-color: #4e6338; /* Darker green on hover */
-}
-
-/* Links Styling */
-p.text-end {
-  margin-top: 15px; 
-}
-
-p.text-end a {
-  color: #617c49;
-  font-weight: 600; 
-}
-
-p.text-end a:hover {
-  text-decoration: underline; 
+.dots-container span.active {
+  background-color: #fff;
 }
 
 /* Responsive adjustments */
-@media screen and (max-width: 700px) {
-  .form_container {
-    width: 80%; 
-    padding: 30px 20px; 
+@media only screen and (max-width: 768px) {
+  .box-area {
+    margin: 0 10px;
+    width: 90%; /* Make it responsive on smaller screens */
   }
 
-  .btn-success {
-    font-size: 1rem; 
+  .left-box, .right-box {
+    padding: 15px;
   }
 }
