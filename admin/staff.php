@@ -106,7 +106,7 @@ if(!isset($_SESSION['auser']))
                                                     <td><?php echo $row['Phone']; ?></td>
                                                     <td><?php echo $row['Email']; ?></td>
                                                     <td>
-                                                        <a href="staffedit.php?id=<?php echo $row['ID']; ?>" class="btn btn-info btn-sm">Edit</a>
+                                                        
                                                         <a href="javascript:void(0);" onclick="confirmDelete(<?php echo $row['ID']; ?>)" class="btn btn-danger btn-sm">Delete</a>
                                                     </td>
                                                 </tr>
