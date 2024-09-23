@@ -99,7 +99,12 @@ export const login = async (email, password) => {
       email,
       password
     });
-    return handleApiResponse(response);
+    const data = handleApiResponse(response);
+    // Ensure that the user object includes the role
+    if (data.user && !data.user.role) {
+      throw new Error('User role not provided by the server');
+    }
+    return data;
   } catch (error) {
     console.error('Error logging in:', error);
     if (error.response && error.response.data) {

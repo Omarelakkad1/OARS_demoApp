@@ -25,6 +25,8 @@ function Home() {
     checkStatus();
   }, [isLoggedIn, user]);
 
+  const showMemberButton = isLoggedIn && !isMember && user && user.role !== 'staff';
+
   return (
     <>
       <Navbar />
@@ -35,7 +37,7 @@ function Home() {
         text="MMU Cyberjaya"
         buttonText="Become a Member"
         url="/membership"
-        btnClass={isLoggedIn && !isMember ? "show" : "hide"}
+        btnClass={showMemberButton ? "show" : "hide"}
       />
       <Destination />
       <Trip />

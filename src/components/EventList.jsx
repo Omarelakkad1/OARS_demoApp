@@ -1,8 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { fetchEvents, createEvent, updateEvent, deleteEvent } from '../api';
+import { useAuth } from '../AuthContext';
 import './EventsStyle.css';
 
 const EventList = () => {
+  const { user } = useAuth();
+  const isStaff = user && user.role === 'staff';
+
+  console.log('Current user:', user); // Debug log
+  console.log('Is staff:', isStaff); // Debug log
+
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -101,15 +108,17 @@ const EventList = () => {
 
   return (
     <div className="event-list">
-      <h2>Events Management</h2>
+      <h2>{isStaff ? 'Events Management' : 'Upcoming Events'}</h2>
       {error && <div className="error-message">{error}</div>}
       {successMessage && <div className="success-message">{successMessage}</div>}
-      <div className="event-actions">
-        <button onClick={handleCreate} className="action-button create">Create New Event</button>
-        <button onClick={() => handleEdit(selectedEvent)} className="action-button edit" disabled={!selectedEvent}>Edit Selected Event</button>
-        <button onClick={() => handleDelete(selectedEvent?.id)} className="action-button delete" disabled={!selectedEvent}>Delete Selected Event</button>
-      </div>
-      {isEditing ? (
+      {isStaff && (
+        <div className="event-actions">
+          <button onClick={handleCreate} className="action-button create">Create New Event</button>
+          <button onClick={() => handleEdit(selectedEvent)} className="action-button edit" disabled={!selectedEvent}>Edit Selected Event</button>
+          <button onClick={() => handleDelete(selectedEvent?.id)} className="action-button delete" disabled={!selectedEvent}>Delete Selected Event</button>
+        </div>
+      )}
+      {isStaff && isEditing ? (
         <form onSubmit={handleSubmit} className="event-form">
           <input
             type="text"
@@ -151,7 +160,6 @@ const EventList = () => {
         </form>
       ) : (
         <>
-          <h3>Upcoming Events</h3>
           {events.length === 0 ? (
             <p>No events available at the moment.</p>
           ) : (
@@ -159,7 +167,7 @@ const EventList = () => {
               <div
                 key={event.id}
                 className={`event-item ${selectedEvent?.id === event.id ? 'selected' : ''}`}
-                onClick={() => setSelectedEvent(event)}
+                onClick={isStaff ? () => setSelectedEvent(event) : undefined}
               >
                 <h4>{event.title}</h4>
                 <p>Location: {event.location}</p>
