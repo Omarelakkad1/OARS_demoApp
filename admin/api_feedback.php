@@ -27,22 +27,6 @@ if (!$con) {
     exit;
 }
 
-// Debug: Check table structure
-$table_check_query = "DESCRIBE feedback_form";
-$table_check_result = mysqli_query($con, $table_check_query);
-if ($table_check_result) {
-    $columns = [];
-    while ($row = mysqli_fetch_assoc($table_check_result)) {
-        $columns[] = $row['Field'];
-    }
-    logError("Feedback form table structure: " . print_r($columns, true));
-} else {
-    $error = "Error checking table structure: " . mysqli_error($con);
-    logError($error);
-    echo json_encode(['error' => $error]);
-    exit;
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents("php://input"), true);
 
@@ -62,10 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    // For now, we'll use a placeholder StudentID of 1. In a real application, you'd get this from the logged-in user's session.
-    $studentId = 1;
-
-    $query = "INSERT INTO feedback_form (StudentID, Name, Email, Title, Description, `Submission Date`) VALUES (?, ?, ?, ?, ?, NOW())";
+    $query = "INSERT INTO feedback_form (Name, Email, Title, Description, `Submission Date`) VALUES (?, ?, ?, ?, NOW())";
     $stmt = $con->prepare($query);
 
     if ($stmt === false) {
@@ -76,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $stmt->bind_param("issss", $studentId, $name, $email, $title, $description);
+    $stmt->bind_param("ssss", $name, $email, $title, $description);
 
     if ($stmt->execute()) {
         $success_message = "Feedback inserted successfully. ID: " . $stmt->insert_id;
