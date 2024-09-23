@@ -102,12 +102,18 @@ export const login = async (email, password) => {
     return handleApiResponse(response);
   } catch (error) {
     console.error('Error logging in:', error);
-    console.error('Error details:', error.response ? error.response.data : 'No response data');
-    throw error;
+    if (error.response && error.response.data) {
+      if (error.response.data.error === 'Account not found') {
+        throw new Error('This account does not exist. Please check your credentials or sign up.');
+      } else if (error.response.data.error === 'Invalid credentials') {
+        throw new Error('Invalid email or password. Please try again.');
+      }
+    }
+    throw new Error('An error occurred during login. Please try again later.');
   }
 };
 
-export const signup = async (firstName, lastName, email, phone) => {
+export const signup = async (firstName, lastName, email, phone, password) => {
   try {
     console.log('Sending signup request:', { firstName, lastName, email, phone });
     const response = await axios.post(`${API_BASE_URL}/api_auth.php`, {
@@ -115,7 +121,8 @@ export const signup = async (firstName, lastName, email, phone) => {
       firstName,
       lastName,
       email,
-      phone
+      phone,
+      password
     });
     console.log('Signup response:', response.data);
     return handleApiResponse(response);

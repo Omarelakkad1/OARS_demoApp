@@ -9,6 +9,7 @@ function Signup() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -17,9 +18,17 @@ function Signup() {
     e.preventDefault();
     setError('');
     try {
-      const response = await apiSignup(firstName, lastName, email, phone);
+      const response = await apiSignup(firstName, lastName, email, phone, password);
+      if (response.status === "error") {
+        if (response.message === "Email already exists") {
+          setError("Email already exists. Please use a different email or log in.");
+        } else {
+          setError(response.message || "Signup failed. Please try again.");
+        }
+        return;
+      }
       login(response.user, response.token);
-      navigate('/'); // Redirect to home page after successful signup
+      navigate('/');
     } catch (error) {
       setError(error.message || "Signup failed. Please try again.");
     }
@@ -76,6 +85,18 @@ function Signup() {
               placeholder="Enter Phone Number"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
+              required
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              className="form-control"
+              placeholder="Enter Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>

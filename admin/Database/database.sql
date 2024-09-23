@@ -147,7 +147,8 @@ CREATE TABLE `staff` (
   `FirstName` varchar(255) NOT NULL,
   `LastName` varchar(255) NOT NULL,
   `Phone` int(10) NOT NULL,
-  `Email` varchar(255) DEFAULT NULL
+  `Email` varchar(255) DEFAULT NULL,
+  `Password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -161,7 +162,8 @@ CREATE TABLE `student` (
   `First Name` varchar(255) NOT NULL,
   `Last Name` varchar(255) NOT NULL,
   `Phone No.` int(10) NOT NULL,
-  `Email` varchar(255) DEFAULT NULL
+  `Email` varchar(255) DEFAULT NULL,
+  `Password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
@@ -291,35 +293,31 @@ ALTER TABLE `student`
 -- Constraints for dumped tables
 --
 
-
-
 --
 -- Constraints for table `competition`
 --
 ALTER TABLE `competition`
-  ADD CONSTRAINT `FKcompetition17493` FOREIGN KEY (`StudentID`) REFERENCES `student` (`ID`),
-  ADD CONSTRAINT `FKcompetition191176` FOREIGN KEY (`MemberID`) REFERENCES `member` (`ID`);
+  ADD CONSTRAINT `FKcompetition17493` FOREIGN KEY (`StudentID`) REFERENCES `student` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FKcompetition191176` FOREIGN KEY (`MemberID`) REFERENCES `member` (`ID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `events`
 --
 ALTER TABLE `events`
-  ADD CONSTRAINT `FKEvents17493` FOREIGN KEY (`StudentID`) REFERENCES `student` (`ID`),
-  ADD CONSTRAINT `FKEvents191176` FOREIGN KEY (`MemberID`) REFERENCES `member` (`ID`);
+  ADD CONSTRAINT `FKEvents17493` FOREIGN KEY (`StudentID`) REFERENCES `student` (`ID`) ON DELETE CASCADE,
+  ADD CONSTRAINT `FKEvents191176` FOREIGN KEY (`MemberID`) REFERENCES `member` (`ID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `feedback_form`
 --
 ALTER TABLE `feedback_form`
-  ADD CONSTRAINT `FKFeedback F736006` FOREIGN KEY (`StudentID`) REFERENCES `student` (`ID`);
+  ADD CONSTRAINT `FKFeedback F736006` FOREIGN KEY (`StudentID`) REFERENCES `student` (`ID`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `member`
 --
 ALTER TABLE `member`
-  ADD CONSTRAINT `FKMember577387` FOREIGN KEY (`StudentID`) REFERENCES `student` (`ID`);
-
-
+  ADD CONSTRAINT `FKMember577387` FOREIGN KEY (`StudentID`) REFERENCES `student` (`ID`) ON DELETE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
