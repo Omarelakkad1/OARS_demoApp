@@ -50,7 +50,7 @@ function Signup() {
     <div className="container">
       <div className="row border rounded-5 p-1 bg-white shadow-sm box-area">
         {/* Left side - Signup form */}
-        <div className="col-md-6 left-box">
+        <div className="col-md-6 col-sm-12 left-box">
           <div className="row align-items-center">
             <div className="header-text mb-4">
               <h2>Sign Up</h2>
@@ -119,7 +119,7 @@ function Signup() {
         </div>
 
         {/* Right side - Image carousel */}
-        <div className="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column right-box">
+        <div className="col-md-6 col-sm-12 rounded-4 d-flex justify-content-center align-items-center flex-column right-box">
           <div className="image-carousel" style={{ position: 'relative', width: '100%', paddingBottom: '100%', overflow: 'hidden', borderRadius: '15px' }}>
             {images.map((img, index) => (
               <img
