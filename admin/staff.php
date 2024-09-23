@@ -1,8 +1,7 @@
 <?php
 session_start();
 require("config.php");
-////code
- 
+
 if(!isset($_SESSION['auser']))
 {
 	header("location:index.php");
@@ -14,7 +13,7 @@ if(!isset($_SESSION['auser']))
 <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-        <title>Agent | Admin</title>
+        <title>Staff | Admin</title>
 		
 		<!-- Favicon -->
         <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
@@ -77,13 +76,15 @@ if(!isset($_SESSION['auser']))
 								</div>
 								<div class="card-body">
 
+									<a href="staffcreate.php" class="btn btn-primary mb-3">Create Staff</a>
+
 									<table id="basic-datatable" class="table table-bordered table-hover">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
                                                     <th>First Name</th>
                                                     <th>Last Name</th>
-                                                    <th>Contact</th>
+                                                    <th>Phone</th>
                                                     <th>Email</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -95,16 +96,19 @@ if(!isset($_SESSION['auser']))
 													
 												$query=mysqli_query($con,"select * from staff");
 												$cnt=1;
-												while($row=mysqli_fetch_row($query))
+												while($row=mysqli_fetch_array($query))
 													{
 											?>
                                                 <tr>
                                                     <td><?php echo $cnt; ?></td>
-                                                    <td><?php echo $row['1']; ?></td>
-                                                    <td><?php echo $row['2']; ?></td>
-                                                    <td><?php echo $row['3']; ?></td>
-                                                    <td><?php echo $row['4']; ?></td>
-                                                    <td><a href="staffdelete.php?id=<?php echo $row['0']; ?>"><button class="btn btn-danger">Delete</button></a></td>
+                                                    <td><?php echo $row['FirstName']; ?></td>
+                                                    <td><?php echo $row['LastName']; ?></td>
+                                                    <td><?php echo $row['Phone']; ?></td>
+                                                    <td><?php echo $row['Email']; ?></td>
+                                                    <td>
+                                                        <a href="staffedit.php?id=<?php echo $row['ID']; ?>" class="btn btn-info btn-sm">Edit</a>
+                                                        <a href="javascript:void(0);" onclick="confirmDelete(<?php echo $row['ID']; ?>)" class="btn btn-danger btn-sm">Delete</a>
+                                                    </td>
                                                 </tr>
                                                 <?php
 												$cnt=$cnt+1;
@@ -148,6 +152,14 @@ if(!isset($_SESSION['auser']))
 		<script src="assets/plugins/datatables/buttons.print.min.js"></script>
 		
 		<script  src="assets/js/script.js"></script>
+		
+		<script>
+		function confirmDelete(id) {
+			if (confirm("Are you sure you want to delete this staff member?")) {
+				window.location.href = "staffdelete.php?id=" + id;
+			}
+		}
+		</script>
 		
     </body>
 </html>
