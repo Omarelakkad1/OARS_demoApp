@@ -65,4 +65,26 @@
   .left-box, .right-box {
     padding: 15px;
   }
+
+  .right-box {
+    order: -1; /* Move the right box (image) to appear first on small screens */
+  }
+
+  .image-carousel {
+    padding-bottom: 70%; /* Adjust aspect ratio for smaller screens */
+  }
+}
+
+@media only screen and (max-width: 576px) {
+  .header-text h2 {
+    font-size: 24px; /* Adjust font size on smaller screens */
+  }
+
+  .form-control-sm {
+    font-size: 12px; /* Even smaller text size for smaller screens */
+  }
+
+  .box-area {
+    padding: 10px;
+  }
 }

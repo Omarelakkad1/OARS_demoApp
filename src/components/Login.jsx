@@ -89,9 +89,11 @@ function Login() {
             {error && <div className="alert alert-danger">{error}</div>}
             <form onSubmit={handleLogin}>
               <div className="input-group mb-3">
+                <label htmlFor="email" className="visually-hidden">Email address</label>
                 <input 
                   type="email" 
                   className="form-control form-control-lg bg-light fs-6" 
+                  id="email"
                   placeholder="Email address" 
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -99,9 +101,11 @@ function Login() {
                 />
               </div>
               <div className="input-group mb-2">
+                <label htmlFor="password" className="visually-hidden">Password</label>
                 <input 
                   type="password" 
                   className="form-control form-control-lg bg-light fs-6" 
+                  id="password"
                   placeholder="Password" 
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -116,7 +120,7 @@ function Login() {
                   </label>
                 </div>
                 <div className="forgot">
-                  <small><a href="#">Forgot Password?</a></small>
+                  <small><Link to="/forgot-password">Forget Password?</Link></small>
                 </div>
               </div>
               <div className="input-group mb-4">
