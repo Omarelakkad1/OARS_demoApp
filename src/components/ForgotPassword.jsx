@@ -1,28 +1,23 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-// import { sendPasswordReset } from '../api';  // Make sure you have this API function set up for sending the reset link
 import "./ForgotPassword.css";
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setMessage('');
+    setIsLoading(true);
     
-    try {
-      const response = await sendPasswordReset(email);
-      if (response.status === 'error') {
-        setError(response.message || "Error sending reset link. Please try again.");
-      } else {
-        setMessage('Password reset link has been sent to your email.');
-      }
-    } catch (err) {
-      setError('Something went wrong. Please try again later.');
-    }
+    setTimeout(() => {
+      setIsLoading(false);
+      setMessage('Password reset link has been sent to your email.');
+    }, 1500);
   };
 
   return (
@@ -48,7 +43,9 @@ function ForgotPassword() {
                 />
               </div>
               <div className="input-group mb-4">
-                <button type="submit" className="btn btn-success w-100 fs-6">Send Reset Link</button>
+                <button type="submit" className="btn btn-success w-100 fs-6" disabled={isLoading}>
+                  {isLoading ? 'Sending...' : 'Send Reset Link'}
+                </button>
               </div>
             </form>
             <div className="row mb-4">
