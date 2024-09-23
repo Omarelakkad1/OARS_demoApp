@@ -2,7 +2,7 @@
 $host = "localhost";
 $username = "root";
 $password = "";
-$database = "database";
+$database = "web";
 
 $con = mysqli_connect($host, $username, $password, $database);
 
@@ -13,7 +13,7 @@ if (mysqli_connect_errno()) {
 }
 
 // Set charset to ensure proper encoding
-mysqli_set_charset($con, "utf8mb4");
+// mysqli_set_charset($con, "utf8mb4");
 
 // Note: logError function is now defined in api_auth.php
 ?>

@@ -9,16 +9,16 @@ const Footer = () => {
           <p>Outdoor Activities and Recreational Society</p>
         </div>
         <div className="social-icons">
-          <a href="/">
+          <a href="https://m.facebook.com/groups/oarsmmucyber/">
             <i className="fa-brands fa-facebook-square"></i>
           </a>
-          <a href="/">
+          <a href="https://www.instagram.com/oarsmmucyber">
             <i className="fa-brands fa-instagram-square"></i>
           </a>
-          <a href="/">
+          <a href="https://t.me/oarsmmucyber">
             <i className="fa-brands fa-telegram"></i> {/* Telegram icon */}
           </a>
-          <a href="/">
+          <a href="https://discord.com/invite/aQCVsUWYp3">
             <i className="fa-brands fa-discord"></i> {/* Discord icon */}
           </a>
         </div>
