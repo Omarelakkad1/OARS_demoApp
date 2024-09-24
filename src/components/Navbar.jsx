@@ -6,7 +6,7 @@ import { useAuth } from "../AuthContext";
 
 const Navbar = () => {
     const [clicked, setClicked] = useState(false);
-    const { isLoggedIn, logout } = useAuth();
+    const { isLoggedIn, logout, user } = useAuth();
     const navigate = useNavigate();
 
     const handleClick = () => {
@@ -24,7 +24,12 @@ const Navbar = () => {
 
     return (
         <nav className="NavbarItems">
-            <h1 className="navbar-logo">OARS</h1>
+            <div className="navbar-logo-container">
+                <h1 className="navbar-logo">OARS</h1>
+                {isLoggedIn && user && (
+                    <span className="user-name">Welcome, {user.name}</span>
+                )}
+            </div>
             <div className="menu-icons" onClick={handleClick}>
                 <i className={clicked ? "fas fa-times" : "fas fa-bars"}></i>
             </div>
