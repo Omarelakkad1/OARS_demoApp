@@ -3,14 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import { signup as apiSignup } from '../api';
 import { useAuth } from '../AuthContext';
 import "../Signup.css";
+import commuiteRecruitment from "../assets/commuiteRecruitment.jpg";
+import fitnessNightImage from "../assets/FitnessNightImage.jpg";
+import memberShip from "../assets/MemberShip.jpg";
 
-// Import background image
-import backgroundImage from '../assets/wallpaperflare.jpg';
-
-// Import carousel images
-import commuiteRecruitment from '../assets/commuiteRecruitment.jpg';
-import FitnessNightImage from '../assets/FitnessNightImage.jpg';
-import MemberShip from '../assets/MemberShip.jpg';
 
 function Signup() {
   const [firstName, setFirstName] = useState('');
@@ -22,10 +18,11 @@ function Signup() {
   const navigate = useNavigate();
   const { login } = useAuth();
 
+  
   const images = [
     commuiteRecruitment,
-    FitnessNightImage,
-    MemberShip,
+    fitnessNightImage,
+    memberShip,
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -55,105 +52,113 @@ function Signup() {
   };
 
   return (
-    <div className="signup-container" style={{
-      backgroundImage: `url(${backgroundImage})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
-    }}>
-      <div className="container">
-        <div className="row border rounded-5 p-1 bg-white shadow box-area">
-          {/* Left side - Signup form */}
-          <div className="col-md-6 col-sm-12 right-box">
-            <div className="row align-items-center">
-              <div className="header-text mb-4">
-                <h2>Sign Up</h2>
-                <p>Join our community now.</p>
+    <div className="container">
+      <div className="row border rounded-5 p-1 bg-white shadow-sm box-area">
+        {/* Left side - Signup form */}
+        <div className="col-md-6 col-sm-12 left-box">
+          <div className="row align-items-center">
+            <div className="header-text mb-4">
+              <h2>Sign Up</h2>
+              <p>Join our community now.</p>
+            </div>
+            {error && <div className="alert alert-danger">{error}</div>}
+            <form onSubmit={handleSignup}>
+              <div className="input-group mb-3">
+                <input
+                  type="text"
+                  className="form-control form-control-sm bg-light fs-6"
+                  placeholder="First Name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required
+                />
               </div>
-              {error && <div className="alert alert-danger">{error}</div>}
-              <form onSubmit={handleSignup}>
-                <div className="input-group mb-3">
-                  <input
-                    type="text"
-                    className="form-control form-control-lg bg-light fs-6"
-                    placeholder="First Name"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="input-group mb-3">
-                  <input
-                    type="text"
-                    className="form-control form-control-lg bg-light fs-6"
-                    placeholder="Last Name"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="input-group mb-3">
-                  <input
-                    type="email"
-                    className="form-control form-control-lg bg-light fs-6"
-                    placeholder="Email address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="input-group mb-3">
-                  <input
-                    type="tel"
-                    className="form-control form-control-lg bg-light fs-6"
-                    placeholder="Phone Number"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="input-group mb-3">
-                  <input
-                    type="password"
-                    className="form-control form-control-lg bg-light fs-6"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                </div>
-                <div className="input-group mb-4">
-                  <button type="submit" className="btn btn-lg btn-success w-100 fs-6">Sign Up</button>
-                </div>
-              </form>
-              <div className="row mb-4">
-                <small>Already have an account? <Link to="/login">Login</Link></small>
+              <div className="input-group mb-3">
+                <input
+                  type="text"
+                  className="form-control form-control-sm bg-light fs-6"
+                  placeholder="Last Name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  required
+                />
               </div>
+              <div className="input-group mb-3">
+                <input
+                  type="email"
+                  className="form-control form-control-sm bg-light fs-6"
+                  placeholder="Email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="input-group mb-3">
+                <input
+                  type="tel"
+                  className="form-control form-control-sm bg-light fs-6"
+                  placeholder="Phone Number"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="input-group mb-3">
+                <input
+                  type="password"
+                  className="form-control form-control-sm bg-light fs-6"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="input-group mb-4">
+                <button type="submit" className="btn btn-success w-100 fs-6">Sign Up</button>
+              </div>
+            </form>
+            <div className="row mb-4">
+              <small>Already have an account? <Link to="/login">Login</Link></small>
             </div>
           </div>
+        </div>
 
-          {/* Right side - Image carousel */}
-          <div className="col-md-6 col-sm-12 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
-            <div className="image-carousel">
-              {images.map((img, index) => (
-                <img
+        {/* Right side - Image carousel */}
+        <div className="col-md-6 col-sm-12 rounded-4 d-flex justify-content-center align-items-center flex-column right-box">
+          <div className="image-carousel" style={{ position: 'relative', width: '100%', paddingBottom: '100%', overflow: 'hidden', borderRadius: '15px' }}>
+            {images.map((img, index) => (
+              <img
+                key={index}
+                src={img}
+                alt={`Featured ${index + 1}`}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: `${(index - currentImageIndex) * 100}%`,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  transition: 'left 0.5s ease-in-out',
+                  borderRadius: '15px',
+                }}
+              />
+            ))}
+            <div className="dots-container" style={{ position: 'absolute', bottom: '10px', left: '50%', transform: 'translateX(-50%)' }}>
+              {images.map((_, index) => (
+                <span
                   key={index}
-                  src={img}
-                  alt={`Featured ${index + 1}`}
                   style={{
-                    left: `${(index - currentImageIndex) * 100}%`,
+                    display: 'inline-block',
+                    width: '10px',
+                    height: '10px',
+                    borderRadius: '50%',
+                    backgroundColor: currentImageIndex === index ? '#fff' : 'rgba(255, 255, 255, 0.5)',
+                    margin: '0 5px',
+                    cursor: 'pointer',
                   }}
-                />
+                  onClick={() => setCurrentImageIndex(index)}
+                ></span>
               ))}
-              <div className="dots-container">
-                {images.map((_, index) => (
-                  <span
-                    key={index}
-                    className={currentImageIndex === index ? 'active' : ''}
-                    onClick={() => setCurrentImageIndex(index)}
-                  ></span>
-                ))}
-              </div>
             </div>
           </div>
         </div>
