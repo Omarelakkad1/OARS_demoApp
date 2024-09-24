@@ -1,36 +1,89 @@
 .about-container {
-    margin: 4rem 6rem;
-    text-align: start;
-    font-family: Arial, sans-serif;
-    color: #333;
-    line-height: 1.6;
+  display: flex;
+  justify-content: space-between;
+  margin: 4rem 6rem;
+  font-family: Arial, sans-serif;
+  color: #333;
+  line-height: 1.6;
+}
+
+.about-content {
+  flex: 1;
+  margin-right: 2rem;
+}
+
+.about-content h1 {
+  font-size: 2.5rem;
+  padding-bottom: 1rem;
+  color: #617c49;
+}
+
+.about-content p {
+  font-size: 1.2rem;
+  padding-bottom: 1.5rem;
+  max-width: 800px;
+}
+
+.team-section {
+  flex: 1;
+  text-align: center;
+}
+
+.team-section h1 {
+  font-size: 2.5rem;
+  padding-bottom: 1rem;
+  color: #617c49;
+}
+
+.team-members {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.team-member {
+  margin: 1rem;
+  max-width: 200px;
+}
+
+.team-member-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+.team-member h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.team-member p {
+  font-size: 1rem;
+  color: #666;
+}
+
+@media screen and (max-width: 1024px) {
+  .about-container {
+    flex-direction: column;
+    margin: 4rem 2rem;
   }
-  
-  .about-container h1 {
-    font-size: 2.5rem;
-    padding-bottom: 1rem;
-    color: #617c49; /* Added color for better styling */
+
+  .about-content {
+    margin-right: 0;
+    margin-bottom: 2rem;
   }
-  
-  .about-container p {
-    font-size: 1.2rem;
-    padding-bottom: 1.5rem; /* Fixed invalid 'Zrem' */
-    max-width: 800px; /* Optional: limits text width for readability */
+
+  .about-content h1,
+  .team-section h1 {
+    font-size: 2rem;
+    text-align: center;
   }
-  
-  @media screen and (max-width: 850px) {
-    .about-container {
-      margin: 4rem 2rem;
-      text-align: center; /* Centering text for smaller screens */
-    }
-  
-    .about-container h1 {
-      font-size: 2rem; /* Adjusted heading size for smaller screens */
-    }
-  
-    .about-container p {
-      font-size: 1.1rem;
-      padding-bottom: 1.2rem;
-    }
+
+  .about-content p {
+    font-size: 1.1rem;
+    padding-bottom: 1.2rem;
+    text-align: center;
   }
-  
+}
