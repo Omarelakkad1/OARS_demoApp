@@ -4,7 +4,7 @@ html, body {
   padding: 0;
   height: 100%;
   width: 100%;
-  overflow: hidden;
+  overflow: auto;
 }
 
 /* Apply background image to login-container */
@@ -14,7 +14,7 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 100px 20px 20px; /* Added top padding to lower the content */
   box-sizing: border-box;
 }
 
@@ -151,7 +151,7 @@ a:hover {
 @media only screen and (max-height: 800px) {
   .login-container {
     align-items: flex-start;
-    padding-top: 20px;
+    padding-top: 80px; /* Adjusted top padding for smaller screens */
   }
 
   .box-area {
