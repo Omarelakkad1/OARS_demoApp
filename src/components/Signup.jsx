@@ -65,7 +65,7 @@ function Signup() {
   return (
     <div style={backgroundStyle}>
       <div className="container">
-        <div className="row border rounded-5 p-1 shadow-sm box-area" style={{backgroundColor: 'rgba(255, 255, 255, 0.8)'}}>
+        <div className="row border rounded-5 p-1 shadow box-area" style={{backgroundColor: 'rgba(255, 255, 255, 1)'}}>
           {/* Left side - Signup form */}
           <div className="col-md-6 col-sm-12 left-box">
             <div className="row align-items-center">
