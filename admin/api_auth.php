@@ -1,6 +1,6 @@
 <?php
 header("Content-Type: application/json");
-header("Access-Control-Allow-Origin:  *");
+header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
@@ -19,72 +19,99 @@ function logError($message) {
     error_log(date('[Y-m-d H:i:s] ') . $message . "\n", 3, 'api_errors.log');
 }
 
+function sanitizeInput($input) {
+    if (is_array($input)) {
+        foreach($input as $key => $value) {
+            $input[$key] = sanitizeInput($value);
+        }
+    } else {
+        $input = trim($input);
+        $input = stripslashes($input);
+        $input = htmlspecialchars($input, ENT_QUOTES, 'UTF-8');
+    }
+    return $input;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $data = json_decode(file_get_contents("php://input"), true);
+    $data = sanitizeInput($data);
     $action = isset($data['action']) ? $data['action'] : '';
 
     if ($action === 'login') {
-        $email = mysqli_real_escape_string($con, $data['email']);
+        $email = $data['email'];
         $password = $data['password'];
 
         // Check staff table first
-        $query = mysqli_query($con, "SELECT * FROM staff WHERE Email = '$email'");
-        if ($staff = mysqli_fetch_assoc($query)) {
-            if (password_verify($password, $staff['Password'])) {
-                $token = generateToken($staff['ID'], 'staff');
-                echo json_encode(array(
-                    "status" => "success",
-                    "message" => "Login successful",
-                    "token" => $token,
-                    "user" => array(
-                        "id" => $staff['ID'],
-                        "name" => $staff['FirstName'] . ' ' . $staff['LastName'],
-                        "email" => $staff['Email'],
-                        "role" => "staff"
-                    )
-                ));
-                exit();
-            }
+        $stmt = $con->prepare("SELECT * FROM staff WHERE Email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $staff = $result->fetch_assoc();
+        $stmt->close();
+
+        if ($staff && password_verify($password, $staff['Password'])) {
+            $token = generateToken($staff['ID'], 'staff');
+            echo json_encode(array(
+                "status" => "success",
+                "message" => "Login successful",
+                "token" => $token,
+                "user" => array(
+                    "id" => $staff['ID'],
+                    "name" => htmlspecialchars($staff['FirstName'] . ' ' . $staff['LastName'], ENT_QUOTES, 'UTF-8'),
+                    "email" => htmlspecialchars($staff['Email'], ENT_QUOTES, 'UTF-8'),
+                    "role" => "staff"
+                )
+            ));
+            exit();
         }
 
         // If not found in staff, check student table
-        $query = mysqli_query($con, "SELECT * FROM student WHERE Email = '$email'");
-        if ($student = mysqli_fetch_assoc($query)) {
-            if (password_verify($password, $student['Password'])) {
-                $token = generateToken($student['ID'], 'student');
-                echo json_encode(array(
-                    "status" => "success",
-                    "message" => "Login successful",
-                    "token" => $token,
-                    "user" => array(
-                        "id" => $student['ID'],
-                        "name" => $student['First Name'] . ' ' . $student['Last Name'],
-                        "email" => $student['Email'],
-                        "role" => "student"
-                    )
-                ));
-            } else {
-                echo json_encode(array("status" => "error", "error" => "Invalid credentials"));
-            }
+        $stmt = $con->prepare("SELECT * FROM student WHERE Email = ?");
+        $stmt->bind_param("s", $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $student = $result->fetch_assoc();
+        $stmt->close();
+
+        if ($student && password_verify($password, $student['Password'])) {
+            $token = generateToken($student['ID'], 'student');
+            echo json_encode(array(
+                "status" => "success",
+                "message" => "Login successful",
+                "token" => $token,
+                "user" => array(
+                    "id" => $student['ID'],
+                    "name" => htmlspecialchars($student['First Name'] . ' ' . $student['Last Name'], ENT_QUOTES, 'UTF-8'),
+                    "email" => htmlspecialchars($student['Email'], ENT_QUOTES, 'UTF-8'),
+                    "role" => "student"
+                )
+            ));
         } else {
-            echo json_encode(array("status" => "error", "error" => "Account not found"));
+            echo json_encode(array("status" => "error", "error" => "Invalid credentials"));
         }
     } elseif ($action === 'signup') {
-        $firstName = mysqli_real_escape_string($con, $data['firstName']);
-        $lastName = mysqli_real_escape_string($con, $data['lastName']);
-        $email = mysqli_real_escape_string($con, $data['email']);
-        $phone = mysqli_real_escape_string($con, $data['phone']);
+        $firstName = $data['firstName'];
+        $lastName = $data['lastName'];
+        $email = $data['email'];
+        $phone = $data['phone'];
         $password = $data['password'];
 
-        $checkStudent = mysqli_query($con, "SELECT * FROM student WHERE Email = '$email'");
-        $checkStaff = mysqli_query($con, "SELECT * FROM staff WHERE Email = '$email'");
-        if (mysqli_num_rows($checkStudent) > 0 || mysqli_num_rows($checkStaff) > 0) {
+        // Check if email already exists
+        $stmt = $con->prepare("SELECT * FROM student WHERE Email = ? UNION SELECT * FROM staff WHERE Email = ?");
+        $stmt->bind_param("ss", $email, $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+
+        if ($result->num_rows > 0) {
             echo json_encode(array("status" => "error", "message" => "Email already exists"));
         } else {
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            $query = mysqli_query($con, "INSERT INTO student (`First Name`, `Last Name`, `Phone No.`, Email, Password) VALUES ('$firstName', '$lastName', '$phone', '$email', '$hashedPassword')");
-            if ($query) {
-                $studentId = mysqli_insert_id($con);
+            $stmt = $con->prepare("INSERT INTO student (`First Name`, `Last Name`, `Phone No.`, Email, Password) VALUES (?, ?, ?, ?, ?)");
+            $stmt->bind_param("sssss", $firstName, $lastName, $phone, $email, $hashedPassword);
+            
+            if ($stmt->execute()) {
+                $studentId = $stmt->insert_id;
                 $token = generateToken($studentId, 'student');
                 echo json_encode(array(
                     "status" => "success",
@@ -92,16 +119,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     "token" => $token,
                     "user" => array(
                         "id" => $studentId,
-                        "name" => "$firstName $lastName",
-                        "email" => $email,
+                        "name" => htmlspecialchars("$firstName $lastName", ENT_QUOTES, 'UTF-8'),
+                        "email" => htmlspecialchars($email, ENT_QUOTES, 'UTF-8'),
                         "role" => "student"
                     )
                 ));
             } else {
-                $error = mysqli_error($con);
+                $error = $stmt->error;
                 logError("Signup failed: " . $error);
                 echo json_encode(array("status" => "error", "message" => "Signup failed: " . $error));
             }
+            $stmt->close();
         }
     } elseif ($action === 'logout') {
         echo json_encode(array("status" => "success", "message" => "Logout successful"));
