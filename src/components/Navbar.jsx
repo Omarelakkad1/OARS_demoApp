@@ -5,62 +5,65 @@ import { Navmenuitems } from "./Navmenuitems";
 import { useAuth } from "../AuthContext";
 
 const Navbar = () => {
-    const [clicked, setClicked] = useState(false);
-    const { isLoggedIn, logout } = useAuth();
-    const navigate = useNavigate();
+  const [clicked, setClicked] = useState(false);
+  const { isLoggedIn, logout } = useAuth();
+  const navigate = useNavigate();
 
-    const handleClick = () => {
-        setClicked(!clicked);
-    };
+  const handleClick = () => {
+    setClicked(!clicked);
+  };
 
-    const handleLogout = async () => {
-        try {
-            await logout();
-            navigate('/');
-        } catch (error) {
-            console.error('Logout failed:', error);
-        }
-    };
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
 
-    return (
-        <nav className="NavbarItems">
-            <h1 className="navbar-logo">OARS</h1>
-            <div className="menu-icons" onClick={handleClick}>
-                <i className={clicked ? "fas fa-times" : "fas fa-bars"}></i>
-            </div>
+  return (
+    <nav className="NavbarItems">
+      {/* Scroll to the Outdoor Activities & Recreational Society section when clicking the OARS logo */}
+      <Link to="#outdoor-activities-section" style={{ textDecoration: 'none', color: 'inherit' }}>
+        <h1 className="navbar-logo">OARS</h1>
+      </Link>
+      <div className="menu-icons" onClick={handleClick}>
+        <i className={clicked ? "fas fa-times" : "fas fa-bars"}></i>
+      </div>
 
-            <ul className={clicked ? "nav-menu active" : "nav-menu"}>
-                {Navmenuitems.map((item, index) => {
-                    if (item.title !== "") {
-                        return (
-                            <li key={index}>
-                                <Link to={item.url} className={item.cName}>
-                                    <i className={item.icon}></i>
-                                    {item.title}
-                                </Link>
-                            </li>
-                        );
-                    }
-                    return null;
-                })}
-                {isLoggedIn ? (
-                    <li>
-                        <button onClick={handleLogout} className="nav-links">
-                            <i className="fas fa-sign-out-alt"></i>
-                            Logout
-                        </button>
-                    </li>
-                ) : (
-                    <li>
-                        <Link to="/signup" className="nav-links-green">
-                            <i className="fas fa-user-plus"></i>
-                            Signup/Login
-                        </Link>
-                    </li>
-                )}
-            </ul>
-        </nav>
-    );
+      <ul className={clicked ? "nav-menu active" : "nav-menu"}>
+        {Navmenuitems.map((item, index) => {
+          if (item.title !== "") {
+            return (
+              <li key={index}>
+                <Link to={item.url} className={item.cName}>
+                  <i className={item.icon}></i>
+                  {item.title}
+                </Link>
+              </li>
+            );
+          }
+          return null;
+        })}
+        {isLoggedIn ? (
+          <li>
+            <button onClick={handleLogout} className="nav-links">
+              <i className="fas fa-sign-out-alt"></i>
+              Logout
+            </button>
+          </li>
+        ) : (
+          <li>
+            <Link to="/signup" className="nav-links-green">
+              <i className="fas fa-user-plus"></i>
+              Signup/Login
+            </Link>
+          </li>
+        )}
+      </ul>
+    </nav>
+  );
 };
 
 export default Navbar;
