@@ -30,21 +30,21 @@ const Footer = () => {
           <a href="/">Changelog</a>
           <a href="/">Roadmap</a>
           <a href="/">Community</a>
-          <a href="/">Support</a>
+          <a href="/support">Support</a>
         </div>
         <div>
           <h4>About Us</h4>
-          <a href="/">Our Story</a>
+          <a href="/about">Our Story</a>
           <a href="/">Team</a>
           <a href="/">Careers</a>
-          <a href="/">Contact</a>
+          <a href="/contact">Contact</a>
         </div>
         <div>
           <h4>Follow Us</h4>
-          <a href="/">Facebook</a>
-          <a href="/">Instagram</a>
-          <a href="/">Telegram</a>
-          <a href="/">Discord</a>
+          <a href="https://m.facebook.com/groups/oarsmmucyber/">Facebook</a>
+          <a href="https://www.instagram.com/oarsmmucyber">Instagram</a>
+          <a href="https://t.me/oarsmmucyber">Telegram</a>
+          <a href="https://discord.com/invite/aQCVsUWYp3">Discord</a>
         </div>
         <div>
           <h4>Legal</h4>
