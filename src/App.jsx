@@ -17,6 +17,7 @@ import Membership from "./routes/Membership";
 import Events from "./routes/Events";
 import FAQ from "./routes/FAQ";
 import Support from "./routes/Support";
+import Roadmap from "./routes/Roadmap";
 
 // Auth Context Provider
 import { AuthProvider } from "./AuthContext";
@@ -40,6 +41,7 @@ function App() {
             <Route path="/events" element={<Events />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/support" element={<Support />} />
+            <Route path="/roadmap" element={<Roadmap />} />
             <Route path="/policies" element={<Policies />} />
           </Routes>
         </div>
