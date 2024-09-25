@@ -3,6 +3,7 @@ import "./AboutUsStyles.css";
 import ukasyahImage from "../assets/ukasyah.jpeg";
 import choon from "../assets/lcw.jpeg";
 import omar from "../assets/omar.jpeg";
+import firdaus from "../assets/firdaus.jpeg";
 
 function AboutUs() {
   return (
@@ -53,6 +54,11 @@ function AboutUs() {
           <img src={omar} alt="Omar Elakkad" className="team-member-image" />
           <h3>Omar Elakkad</h3>
           <p>Student ID: 1211300682</p>
+        </div>
+        <div className="team-member">
+          <img src={firdaus} alt="Firdaus Azman" className="team-member-image" />
+          <h3>Firdaus Azman</h3>
+          <p>Student ID: 1191101797</p>
         </div>
         </div>
       </div>
