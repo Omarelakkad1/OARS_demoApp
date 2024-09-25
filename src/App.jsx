@@ -10,6 +10,7 @@ import Contact from "./routes/Contact";
 import Membership from "./routes/Membership";
 import Events from "./routes/Events";
 import FAQ from "./routes/FAQ"; 
+import Support from "./routes/Support";
 import { AuthProvider } from "./AuthContext";
 import Navbar from "./components/Navbar";
 
@@ -30,6 +31,7 @@ function App() {
             <Route path="/membership" element={<Membership />} />
             <Route path="/events" element={<Events />} />
             <Route path="/faq" element={<FAQ />} />
+            <Route path="/support" element={<Support />}  />
           </Routes>
         </div>
       </Router>
