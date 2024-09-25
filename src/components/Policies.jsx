@@ -1,11 +1,14 @@
 import React from "react";
 import Footer from "../components/Footer";
 import "./Policies.css";
-
+import Navbar from "../components/Navbar";
 
 const Policies = () => {
   return (
+    <>
+    <Navbar />
     <div className="policies-container">
+    
       <section className="policy-section" id="privacy-policy">
         {" "}
         {/* Added id */}
@@ -81,7 +84,11 @@ const Policies = () => {
           adventure, and personal growth.
         </p>
       </section>
+      
     </div>
+    <Footer/>
+    </>
+    
   );
 };
 
