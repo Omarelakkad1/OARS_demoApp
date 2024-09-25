@@ -9,9 +9,8 @@ html, body {
 /* Apply background image to body */
 body {
   font-family: "Poppins", sans-serif;
-  /* background: url('/images/wallpaperflare.jpg') no-repeat center center fixed;  */
   background-size: cover; /* Cover the entire viewport */
-  /* overflow: hidden; Prevent scrolling */
+ 
 }
 
 /* Make sure the container covers the full viewport */
