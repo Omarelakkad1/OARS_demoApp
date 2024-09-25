@@ -19,6 +19,7 @@ import FAQ from "./routes/FAQ";
 import Support from "./routes/Support";
 import Roadmap from "./routes/Roadmap";
 
+
 // Auth Context Provider
 import { AuthProvider } from "./AuthContext";
 
@@ -27,7 +28,7 @@ function App() {
     <AuthProvider>
       <Router>
         <div className="App">
-          
+          <Navbar />
 
           <Routes>
             <Route path="/" element={<Home />} />
