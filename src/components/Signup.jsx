@@ -63,7 +63,7 @@ function Signup() {
   };
 
   return (
-    <div style={backgroundStyle}>
+    
       <div className="container">
         <div className="row border rounded-5 p-1 shadow box-area" style={{backgroundColor: 'rgba(255, 255, 255, 1)'}}>
           {/* Left side - Signup form */}
@@ -176,7 +176,7 @@ function Signup() {
           </div>
         </div>
       </div>
-    </div>
+    
   );
 }
 

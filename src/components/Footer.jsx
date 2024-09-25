@@ -1,3 +1,5 @@
+import React from "react";
+import { Link } from "react-router-dom";
 import "./FooterStyles.css";
 
 const Footer = () => {
@@ -16,10 +18,10 @@ const Footer = () => {
             <i className="fa-brands fa-instagram-square"></i>
           </a>
           <a href="https://t.me/oarsmmucyber">
-            <i className="fa-brands fa-telegram"></i> {/* Telegram icon */}
+            <i className="fa-brands fa-telegram"></i>
           </a>
           <a href="https://discord.com/invite/aQCVsUWYp3">
-            <i className="fa-brands fa-discord"></i> {/* Discord icon */}
+            <i className="fa-brands fa-discord"></i>
           </a>
         </div>
       </div>
@@ -27,17 +29,17 @@ const Footer = () => {
       <div className="bottom">
         <div>
           <h4>Projects</h4>
-          <a href="/">Changelog</a>
-          <a href="/">Roadmap</a>
-          <a href="/">Community</a>
-          <a href="/support">Support</a>
+          <Link to="/">Changelog</Link>
+          <Link to="/">Roadmap</Link>
+          <Link to="/">Community</Link>
+          <Link to="/support">Support</Link>
         </div>
         <div>
           <h4>About Us</h4>
-          <a href="/about">Our Story</a>
-          <a href="/">Team</a>
-          <a href="/">Careers</a>
-          <a href="/contact">Contact</a>
+          <Link to="/about">Our Story</Link>
+          <Link to="/">Team</Link>
+          <Link to="/">Careers</Link>
+          <Link to="/contact">Contact</Link>
         </div>
         <div>
           <h4>Follow Us</h4>
@@ -48,9 +50,9 @@ const Footer = () => {
         </div>
         <div>
           <h4>Legal</h4>
-          <a href="/">Privacy Policy</a>
-          <a href="/">Terms of Service</a>
-          <a href="/">Cookies Policy</a>
+          <Link to="/">Privacy Policy</Link>
+          <Link to="/">Terms of Service</Link>
+          <Link to="/">Cookies Policy</Link>
         </div>
       </div>
     </div>

@@ -56,7 +56,7 @@ function Login() {
   };
 
   return (
-    <div style={backgroundStyle}>
+    
       <div className="container">
         <div className="row border rounded-5 p-1 bg-white shadow box-area" style={{backgroundColor: 'rgba(255, 255, 255, 0.8)'}}>
           <div className="col-md-6 rounded-4 d-flex justify-content-center align-items-center flex-column left-box">
@@ -151,7 +151,7 @@ function Login() {
           </div>
         </div>
       </div>
-    </div>
+    
   );
 }
 
