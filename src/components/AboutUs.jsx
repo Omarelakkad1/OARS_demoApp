@@ -43,22 +43,23 @@ function AboutUs() {
           <div className="team-member">
             <img src={ukasyahImage} alt="Ukasyah" className="team-member-image" />
             <h3>Muhammad Ukasyah</h3>
-            <p>Student ID: 1221303909</p>
+            <p>Student ID : 1221303909 <br/> Section : TC1L <br/> <a href="mailto:1221303909@student.mmu.edu.my">Contact Me</a> </p>
+            
           </div>
         <div className="team-member">
           <img src={choon} alt="Wang Choon Hoe" className="team-member-image" />
           <h3>Wang Choon Hoe</h3>
-          <p>Student ID: 119110335</p>
+          <p>Student ID: 119110335 <br/> Section : TC1L <br/> <a href="mailto:119110335@student.mmu.edu.my">Contact Me</a></p>
         </div>
         <div className="team-member">
           <img src={omar} alt="Omar Elakkad" className="team-member-image" />
           <h3>Omar Elakkad</h3>
-          <p>Student ID: 1211300682</p>
+          <p>Student ID: 1211300682 <br/> Section : TC1L <br/> <a href="mailto:1211300682@student.mmu.edu.my">Contact Me</a></p>
         </div>
         <div className="team-member">
           <img src={firdaus} alt="Firdaus Azman" className="team-member-image" />
           <h3>Firdaus Azman</h3>
-          <p>Student ID: 1191101797</p>
+          <p>Student ID: 1191101797 <br/> Section : TC1L <br/> <a href="mailto:1191101797@student.mmu.edu.my">Contact Me</a></p>
         </div>
         </div>
       </div>
